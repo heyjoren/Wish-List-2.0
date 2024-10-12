@@ -1,0 +1,44 @@
+.box{
+    max-width: 500px; 
+    margin: 20px;
+}
+
+button {
+    border-radius: 20px;
+    padding: 10px;
+    border-color: white;
+}
+
+button:nth-child(2){
+    float: right;
+}
+
+#verwijder{
+    background-color:red;
+}
+mat-icon {
+    color: black;
+}
+
+#verwijder:hover{
+    background-color: black;
+}
+
+#verwijder:hover mat-icon{
+    color: red;
+}
+
+#aanpassen{
+    background-color: lightskyblue;
+    color: black;
+}
+
+#aanpassen:hover{
+    background-color: black;
+    color: lightskyblue;
+}
+
+.selected-item{
+    border-color: #3280B0 !important;
+    border-width: 2px !important;
+}

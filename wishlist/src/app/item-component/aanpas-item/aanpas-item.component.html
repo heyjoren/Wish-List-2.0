@@ -1,0 +1,52 @@
+<div class="container">
+
+    <div class="row">
+         <div class="col-md-6 routerOutlet">
+            <router-outlet></router-outlet>
+        </div>
+
+        <div class="col-md-6">
+            <div>
+                <div class="form-container">
+                    <div  class="input_div">
+                        <label>Naam:</label>
+                        <input type="string" id="naam" [(ngModel)]="naam" >
+                    </div>
+            
+                    <div class="input_div">
+                        <label>Prijs €:</label>
+                        <input type="number" id="prijs" [(ngModel)]="prijs" step="0.01">
+                    </div>
+            
+                    <div  class="input_div">
+                        <label>Afbeelding:</label>
+                        <input type="file" id="img" [(ngModel)]="img" accept="image/*">
+                        <!-- <input type="file" id="img" [(ngModel)]="img" accept="image/*" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"> -->
+                    </div>
+                    
+                    <div  class="input_div">
+                        <label>Fabrikant:</label>
+                        <input type="string" id="fabrikant" [(ngModel)]="fabrikant" >
+                    </div>
+            
+                    <div  class="input_div">
+                        <label>Beschrijving:</label>
+                        <textarea id="beschrijving" [(ngModel)]="beschrijving" >
+                        </textarea>
+                    </div>
+            
+                    <div>
+                        <button mat-raised-button class="aanpassen" aria-label="Button that displays a tooltip when focused or hovered over"
+                        (click)="aanpassen()">Aanpassen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<button mat-raised-button class="close" aria-label="Button that displays a tooltip when focused or hovered over"
+matTooltip="Sluit het venster" (click)="closeSccreen()">
+<mat-icon mat-fab>close</mat-icon>
+</button>
+
+</div>

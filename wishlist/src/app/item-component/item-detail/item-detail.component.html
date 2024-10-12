@@ -1,0 +1,15 @@
+<div>
+    <ng-template [ngIf]="item.img">
+        <img [src]="'/assets/img/' + item.img" [alt]="'afbeelding van ' + item.naam" />
+        <!-- <img [src]="item.img" [alt]="'afbeelding van ' + item.naam" /> -->
+    </ng-template>
+    <div class="naam_fabrikant">
+        <p class="mb-0">Naam: {{ item.naam }}</p>
+        <p class="mb-0">Fabrikant: {{ item.fabrikant }}</p>
+    </div>
+    <p class="mb-0">Prijs: €{{ item.prijs }}</p>
+    <br>
+    <p class="mb-0">Beschrijving: {{ item.beschrijving }}</p>
+
+    <button *ngIf="showKoopButton" (click)="koop()">Koop</button>
+</div>

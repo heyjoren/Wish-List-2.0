@@ -1,0 +1,5 @@
+.kader {
+    border: 2px black solid;
+    padding: 10px;
+    display: inline-block;
+}

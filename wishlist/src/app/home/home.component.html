@@ -1,0 +1,7 @@
+<div class="totaalBedrag">
+    <app-totaal-bedrag></app-totaal-bedrag>
+</div>
+
+<div *ngFor="let item of laatsteItems">
+    <app-show-item [item]= "item"></app-show-item>
+</div>

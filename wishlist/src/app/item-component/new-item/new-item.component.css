@@ -1,0 +1,90 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: black;
+    width: 40px;
+    height: 40px;
+}
+
+.close mat-icon {
+    font-size: 24px;
+    margin-top: 5px;
+    color: white;
+}
+
+/* de input box */
+.form-container {
+    width: 80%;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.verplicht{
+    margin-left: 250px;
+}
+
+.add{
+    background-color: greenyellow;
+    border: none;
+    width: 200px;
+    height: 40px;
+    margin-left: 225px;
+}
+
+.input_div{
+    margin-left: 2%;
+    margin-bottom: 10px;
+}
+
+#naam{
+    width: 80%;
+    margin-left: 9%;
+}
+
+#prijs{
+    width: 80%;
+    margin-left: 8.7%;
+}
+
+#img{
+    width: 80%;
+    margin-left: 3%;
+}
+
+#fabrikant{
+    width: 80%;
+    margin-left: 4%;
+}
+
+#beschrijving{
+    width: 80%;
+    margin-left: 1.2%;
+    min-height: 100px;
+    max-height: calc(100vh - 400px); 
+}
+
+input[type="file"]::-webkit-file-upload-button {
+    border-radius: 20px;
+    padding: 10px;
+    border-color: white;
+    background-color: lightskyblue;
+    color: black;
+}
+
+input[type="file"]::-webkit-file-upload-button:hover{
+    background-color: black;
+    color: lightskyblue;
+}

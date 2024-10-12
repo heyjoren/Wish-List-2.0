@@ -1,0 +1,33 @@
+<div class="container">
+    <h1>Bedrag toevoegen</h1>
+
+    <div class="form-container">
+        <div  class="input_div">
+            <label>Datum:</label>
+            <input type="date" id="datum" [(ngModel)]="datum" >
+        </div>
+
+        <div class="input_div">
+            <label>Bedrag €:</label>
+            <input type="number" id="bedrag" [(ngModel)]="bedrag" step="0.01">
+        </div>
+
+        <div  class="input_div">
+            <label>Bewerking:</label>
+            <select id="teken" [(ngModel)]="teken">
+                <option value="+" [selected]="teken === '+'">toevoegen</option>
+                <option value="-">afhalen</option>
+            </select>
+        </div>
+
+        <div>
+            <button mat-raised-button class="add" aria-label="Button that displays a tooltip when focused or hovered over"
+            matTooltip="Voeg een bedrag toe" (click)="toevoegen()">toevoegen</button>
+        </div>
+    </div>
+
+    <button mat-raised-button class="close" aria-label="Button that displays a tooltip when focused or hovered over"
+        matTooltip="Sluit het venster" (click)="closeDialog()">
+        <mat-icon mat-fab>close</mat-icon>
+    </button>
+</div>
