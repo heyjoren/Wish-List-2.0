@@ -1,23 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-      <div class="col-md-12">
-        <ul class="nav nav-tabs">
-          <li class="nav-item"><a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">Home</a></li>
-          <li class="nav-item"><a class="nav-link" routerLink="/bedragen" routerLinkActive="active">Bedragen</a></li>
-          <li class="nav-item"><a class="nav-link" routerLink="/items" routerLinkActive="active">Items</a></li>
-          <li class="nav-item dropdown" routerLinkActive="active" #accountMenu="routerLinkActive">
-            <a class="nav-link dropdown-toggle" [class.active]="accountMenu.isActive" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
-            <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Login</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" routerLink="/signUp" routerLinkActive="active">Sign up</a>
-              <!-- <a class="dropdown-item" href="signUp">Sign up</a> -->
-            </div>
-          </li>
-          <!-- CH Een gewone -->
-          <!-- <li class="nav-item nav-tabs-right"><a class="nav-link" routerLink="/signUp" routerLinkActive="active">sign up</a></li> -->
-        </ul>
-      </div>
+      <app-header></app-header>
     </div>
     <div class="row">
       <div class="col-md-12">

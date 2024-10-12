@@ -1,0 +1,35 @@
+.ms-auto {
+    margin-left: auto;
+}
+
+.right-align {
+    margin-right: 20px;
+}
+
+.dropdown-menu {
+    margin-left: -55px;
+    width: 150px;
+    padding: 5px;
+}
+
+.signUp {
+    background-color: #398a5b;
+    color: white;
+}
+
+.signUp:active {
+    background-color: none;
+    color: green;
+}
+
+.nav-item.dropdown .dropdown-item {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.dropdown-divider{
+    padding: 0px;
+    margin: 4px;
+}
