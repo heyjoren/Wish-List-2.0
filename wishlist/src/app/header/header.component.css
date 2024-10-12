@@ -13,13 +13,18 @@
 }
 
 .signUp {
+    color: #398a5b;
+}
+
+.signUp.active {
     background-color: #398a5b;
     color: white;
 }
 
-.signUp:active {
-    background-color: none;
-    color: green;
+/* Kleur als je klik inhoudt. */
+.nav-item.dropdown .dropdown-item.signUp:active {
+    background-color: #398a5b;
+    color: white;
 }
 
 .nav-item.dropdown .dropdown-item {
