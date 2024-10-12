@@ -1,0 +1,43 @@
+<div class="container">
+    <h1>Item toevoegen</h1>
+
+    <div class="form-container">
+        <p class="verplicht">* is verplicht</p>
+        <div  class="input_div">
+            <label>Naam*:</label>
+            <input type="string" id="naam" [(ngModel)]="naam" >
+            <!-- <input type="string" id="naam" > -->
+        </div>
+
+        <div class="input_div">
+            <label>Prijs* €:</label>
+            <input type="number" id="prijs" [(ngModel)]="prijs" step="0.01">
+        </div>
+
+        <div  class="input_div">
+            <label>Afbeelding:</label>
+            <input type="file" id="img" [(ngModel)]="img" accept="image/*">
+        </div>
+        
+        <div  class="input_div">
+            <label>Fabrikant*:</label>
+            <input type="string" id="fabrikant" [(ngModel)]="fabrikant" >
+        </div>
+
+        <div  class="input_div">
+            <label>Beschrijving:</label>
+            <textarea id="beschrijving" [(ngModel)]="beschrijving" >
+            </textarea>
+        </div>
+
+        <div>
+            <button mat-raised-button class="add" aria-label="Button that displays a tooltip when focused or hovered over"
+            matTooltip="Voeg een bedrag toe" (click)="toevoegen()">toevoegen</button>
+        </div>
+    </div>
+
+    <button mat-raised-button class="close" aria-label="Button that displays a tooltip when focused or hovered over"
+        matTooltip="Sluit het venster" (click)="closeDialog()">
+        <mat-icon mat-fab>close</mat-icon>
+    </button>
+</div>

@@ -1,0 +1,17 @@
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <ul class="nav nav-tabs">
+          <li class="nav-item"><a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/bedragen" routerLinkActive="active">Bedragen</a></li>
+          <li class="nav-item"><a class="nav-link" routerLink="/items" routerLinkActive="active">items</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  

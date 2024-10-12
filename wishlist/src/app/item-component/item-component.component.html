@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="totaalBedrag">
+        <app-totaal-bedrag></app-totaal-bedrag>
+    </div>
+
+    <div class="add_delete">
+        <button mat-raised-button aria-label="Button that displays a tooltip when focused or hovered over"
+            matTooltip="Maak een nieuw bedrag aan. Om toe te voegen of af te halen." (click)="onAdd()">
+            <mat-icon mat-fab>add</mat-icon>
+        </button>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <div *ngFor="let item of itemService.items.reverse()" >
+                    <app-show-item [item]= "item" [showButtons]="true" (click)="onItemClick(item.id!)"
+                    [isSelected]="selectedItemId === item.id"></app-show-item>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 routerOutlet">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,23 @@
+.box{
+    max-width: 500px; 
+    margin: 20px;
+}
+
+button {
+    border-radius: 20px;
+    padding: 10px;
+    background-color: red;
+    border-color: white;
+}
+
+mat-icon {
+    color: black;
+}
+
+button:hover{
+    background-color: black;
+}
+
+button:hover mat-icon{
+    color: red;
+}

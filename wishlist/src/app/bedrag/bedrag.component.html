@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="totaalBedrag">
+        <app-totaal-bedrag></app-totaal-bedrag>
+    </div>
+
+    <div class="add_delete">
+        <button mat-raised-button aria-label="Button that displays a tooltip when focused or hovered over"
+            matTooltip="Maak een nieuw bedrag aan. Om toe te voegen of af te halen." (click)="onAdd()">
+            <mat-icon mat-fab>add</mat-icon>
+        </button>
+    </div>
+
+    <div>
+        <div *ngFor="let bedrag of bedragService.bedragen.reverse()">
+            <app-show-bedrag [bedrag]= "bedrag"></app-show-bedrag>
+        </div>
+    </div>
+</div>

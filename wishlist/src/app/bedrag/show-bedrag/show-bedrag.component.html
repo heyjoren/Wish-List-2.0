@@ -1,0 +1,11 @@
+<div class="border p-2 box">
+    <div class="d-flex justify-content-between">
+      <div>
+        <p class="mb-0">Bedrag: {{ bedrag.teken }} {{ bedrag.bedrag }}€</p>
+        <p class="mb-0 align-self-center">Datum: {{ bedrag.datum }}</p>
+      </div>
+      <button matTooltip="Verwijder dit bedrag" (click)="onDelete()">
+        <mat-icon mat-stroked-button>delete</mat-icon>
+      </button>
+    </div>
+  </div>
