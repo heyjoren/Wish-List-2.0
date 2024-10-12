@@ -5,6 +5,7 @@ import { ItemComponentComponent } from './item-component/item-component.componen
 import { NewBedragComponent } from './bedrag/new-bedrag/new-bedrag.component';
 import { ItemDetailComponent } from './item-component/item-detail/item-detail.component';
 import { AanpasItemComponent } from './item-component/aanpas-item/aanpas-item.component';
+import { SignUpComponent } from './auth/sign-up/sign-up.component';
 
 export const routes: Routes = [
 
@@ -21,6 +22,7 @@ export const routes: Routes = [
     {path: 'items/:id/change', component: AanpasItemComponent, children: [
         {path: '', component: ItemDetailComponent, data: { showKoopButton: false } },
     ]},
+    {path: 'signUp', component: SignUpComponent },
     
 
 ];
