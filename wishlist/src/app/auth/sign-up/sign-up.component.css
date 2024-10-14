@@ -1,0 +1,50 @@
+/* center alles van de sign up component */
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 250px;
+}
+
+form{
+    width: 500px;
+    border: 1px solid green;
+}
+
+.email{
+    border: 1px solid pink;
+    padding: 5px;
+}
+
+.email input {
+    float: right;
+    width: 350px;
+}
+
+.email::after{
+	content:"";
+	display: block;
+	clear: both;
+}
+
+.passwd{
+    border: 1px solid purple;
+    padding: 5px;
+}
+
+.passwd input {
+    float: right;
+    width: 350px;
+}
+
+.passwd::after{
+	content:"";
+	display: block;
+	clear: both;
+}
+
+button{
+    display: block;
+    margin: 10px auto 0;
+}
