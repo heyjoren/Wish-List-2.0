@@ -4,7 +4,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 250px;
+    height: 500px;
 }
 
 form{
@@ -12,12 +12,24 @@ form{
     border: 1px solid green;
 }
 
-.email{
+/* li elemneten algemeene stijl */
+li {
+    margin-left: 25px;
+}
+
+/*------------------------*/
+/* algemeente stijl email */
+.divEmailAll{
     border: 1px solid pink;
     padding: 5px;
 }
 
-.email input {
+/*------------*/
+.email{
+    border: 1px dashed blue;
+}
+
+.email input{
     float: right;
     width: 350px;
 }
@@ -28,9 +40,16 @@ form{
 	clear: both;
 }
 
-.passwd{
+/*------------------------*/
+/* algemeente stijl passwd */
+.divPasswdAll{
     border: 1px solid purple;
     padding: 5px;
+}
+
+/*------------*/
+.passwd{
+    border: 1px dashed black;
 }
 
 .passwd input {
@@ -43,8 +62,26 @@ form{
 	display: block;
 	clear: both;
 }
-
+/*------------------------*/
 button{
     display: block;
     margin: 10px auto 0;
+}
+
+/*------------------------*/
+/* error mssg */
+.help-block{
+    color: red;
+    font-style: italic;
+}
+
+/* error paswoord niet voldoen */
+.passwdInValid{
+    color: red;
+}
+
+/*------------*/
+/* error paswoord voldoen */
+.passwdValid{
+    color: green;
 }

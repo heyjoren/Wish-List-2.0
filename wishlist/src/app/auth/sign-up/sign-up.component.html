@@ -1,16 +1,47 @@
 <div>
     <h1>Welkom</h1>
-    <p>gelieven u aan te melden op de site.</p>
+    <p>gelieve u aan te melden op de site.</p>
 </div>
 
-<form>
-    <div class="email">
-        <label>email:</label>
-        <input id="iEmail" type="email">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group divEmailAll">
+        <div class="email">
+            <label for="email">email:</label>
+            <input id="email" type="email" formControlName="email" class="form-control">
+        </div>
+        <span *ngIf="email.touched && !email.valid" class="help-block">Geef een geldig email in.</span>
     </div>
-    <div class="passwd">
-        <label>paswoord:</label>
-        <input id="iPasswd" type="password">
+    <div class="form-group divPasswdAll">
+        <div class="passwd">
+            <label for="passwd">paswoord:</label>
+            <!-- <input id="passwd" type="password" formControlName="passwd" class="form-control"> -->
+             <!-- TEST -->
+            <input id="passwd" type="text" formControlName="passwd" class="form-control">
+             <!-- TEST tot hier -->
+        </div>
+        <div>
+            <span>Het paswoord moet minstens bestaan uit:</span>
+            <li [ngClass]="{
+                'passwdInValid': (passwd.touched || passwd.dirty) && (passwd.value?.length < 8 || passwd.errors?.['minlength']),
+                'passwdValid': (passwd.touched || passwd.dirty) && passwd.value?.length >= 8
+              }">8 karakters</li>
+            <li [ngClass]="{
+                'passwdInValid': (passwd.touched || passwd.dirty) && passwd.errors?.['passwordStrength'],
+                'passwdValid': (passwd.touched || passwd.dirty) && hasUpperCase
+            }">een kleineletter en hoofdletter</li>
+            <li [ngClass]="{
+                'passwdInValid': (passwd.touched || passwd.dirty) && passwd.errors?.['passwordStrength'],
+                'passwdValid': (passwd.touched || passwd.dirty) && hasNumber
+            }">een cijfer</li>
+            <li [ngClass]="{
+                'passwdInValid': (passwd.touched || passwd.dirty) && passwd.errors?.['passwordStrength'],
+                'passwdValid': (passwd.touched || passwd.dirty) && hasSpecialChar
+            }">een speciaal karakter</li>
+            </div>
+        <span *ngIf="passwd.touched && !passwd.valid" class="help-block">Het paswoord is niet veilig en voldoet niet aan de vereisten.</span>
     </div>
-    <button>submit</button>
+    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">submit</button>
+    <!-- TEST -->
+    <!-- <button class="btn btn-primary" type="submit">submit</button> -->
+    <!-- TEST tot hier -->
 </form>
