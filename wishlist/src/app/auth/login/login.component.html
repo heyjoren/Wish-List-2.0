@@ -4,27 +4,37 @@
 </div>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="form-group divEmailAll">
-        <div class="email">
-            <label for="email">Email:</label>
-            <input id="email" type="email" formControlName="email" class="form-control" placeholder="wishlist@gmail.com">
+    <div formGroupName="credentials">
+        <div class="form-group divEmailAll">
+            <div class="email">
+                <label for="email">Email:</label>
+                <input id="email" type="email" formControlName="email" class="form-control" placeholder="wishlist@gmail.com">
+            </div>
+            <span *ngIf="email.touched && !email.valid" class="help-block">Geef een geldig email in.</span>
         </div>
-        <span *ngIf="email.touched && !email.valid" class="help-block">Geef een geldig email in.</span>
-    </div>
-    <div class="form-group divPasswdAll">
-        <div class="passwd-label">
-            <label for="passwd">Paswoord:</label>
-            <div class="passwd">
-                <input id="passwd" [type]="showPassword ? 'text' : 'password'" formControlName="passwd" class="form-control">
-                <button type="button" (click)="togglePasswordVisibility()" class="toggle-passwd-btn">
-                    <img [src]="showPassword ? '../../../assets/icon/eye-symbols-show-visible.png' : '../../../assets/icon/eye-symbols-hide-visible.png'" alt="Toggle Password Visibility">
-                </button>
+        <div class="form-group divPasswdAll">
+            <div class="passwd-label">
+                <label for="passwd">Paswoord:</label>
+                <div class="passwd">
+                    <input id="passwd" [type]="showPassword ? 'text' : 'password'" formControlName="passwd" class="form-control">
+                    <button type="button" (click)="togglePasswordVisibility()" class="toggle-passwd-btn">
+                        <img [src]="showPassword ? '../../../assets/icon/eye-symbols-show-visible.png' : '../../../assets/icon/eye-symbols-hide-visible.png'" alt="Toggle Password Visibility">
+                    </button>
+                </div>
             </div>
         </div>
     </div>
     <div class="submit">
-        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">submit</button>
-        <button class="btn btn-info tip" (mouseover)="showTooltip= true" (mouseleave)="showTooltip= false" 
+        <!-- WARN als je de submit disabled wilt hebben moet je deze gebruiken -->
+        <!-- <button class="btn btn-primary" type="submit" [disabled]="!form.valid">submit</button> -->
+        <!-- WARN tot hier -->
+
+        <!-- WARN als je de submit button nooit disabled wilt hebben moet je deze gebruieken. -->
+        <button class="btn btn-primary" type="submit">submit</button>
+         <!-- WARN tot hier -->
+
+         <!-- WARN als je de submit tip niet wilt tonen moet je het volgende weg doen. -->
+        <!-- <button class="btn btn-info tip" (mouseover)="showTooltip= true" (mouseleave)="showTooltip= false" 
         (mousedown)="keepHover = true" 
         (mouseup)="keepHover = false"
         [ngClass]="{'active': keepHover}">?</button>
@@ -35,6 +45,7 @@
                 <li *ngIf="!email.valid">Email</li>
                 <li *ngIf="!passwd.valid">Paswoord</li>
             </ul>
-        </span>
+        </span> -->
+        <!-- WARN tot hier -->
     </div>
 </form>

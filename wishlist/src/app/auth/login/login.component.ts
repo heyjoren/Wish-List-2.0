@@ -13,53 +13,41 @@ import { AuthService } from '../auth.service';
 export class LoginComponent {
   form!: FormGroup;
   showPassword: boolean = false;
-  showTooltip: boolean  = false;
-  keepHover: boolean  = false;
+  // WARN als je het vraagteken na submit wilt weg halen.
+  // showTooltip: boolean  = false;
+  // keepHover: boolean  = false;
+  // WARN tot hier
 
   constructor(private fb : FormBuilder, private auth: AuthService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      'email': [null, {
+      'credentials': this.fb.group({
+        'email': [null, {
         validators: [Validators.required, Validators.email]
       }],
       'passwd': [null, {
         validators: [Validators.required, Validators.minLength(8), this.auth.passwdValidation]
-      }],
+      }]
+      })
     });
   }
 
   onSubmit(): void {
     console.log(this.form)
-    console.log("errors: " + this.form.errors)
-    console.log("errors passwd: " + this.passwd.errors)
   }
 
   togglePasswordVisibility():void {
     this.showPassword = !this.showPassword;
-    console.log(this.showPassword)
   }
   get email() {
-    return this.form.controls['email'];
+    const naam = this.form.controls['credentials'] as FormGroup;
+    return naam.controls['email']
   }
 
   get passwd() {
-    return this.form.controls['passwd'];
+    const naam = this.form.controls['credentials'] as FormGroup;
+    return naam.controls['passwd']
   }
 
-  get hasUpperCase(): boolean {
-    return /[A-Z]/.test(this.passwd.value || '');
-  }
-
-  get hasLowerCase(): boolean {
-    return /[a-z]/.test(this.passwd.value || '');
-  }
-
-  get hasSpecialChar(): boolean {
-    return /[\W\_]/.test(this.passwd.value || '');
-  }
-
-  get hasNumber(): boolean {
-    return /[\d]/.test(this.passwd.value || '');
-  }
 }
