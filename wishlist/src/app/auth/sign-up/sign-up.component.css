@@ -100,13 +100,19 @@ li {
 /* algemeente stijl passwd */
 .divPasswdAll{
     padding: 5px;
+    border: 1px black solid;
 }
 
 /*------------*/
 
+.passwd{
+    border: 1px blueviolet dashed;
+}
+
 .passwd input {
     float: right;
     width: 370px;
+    border: 1px blue dotted;
 }
 
 .passwd::after{
@@ -114,6 +120,23 @@ li {
 	display: block;
 	clear: both;
 }
+
+/*------------*/
+/* .toggle-passwd-btn {
+    cursor: pointer;
+    background: none; */
+    /* right: 10px; */
+    /* top: 50%; */
+    /* transform: translateY(-50%);
+    border: 1px solid green;
+    float: right;
+} */
+
+/* .toggle-passwd-btn img {
+    width: 25px;
+    height: 20px;
+} */
+
 /*------------------------*/
 button{
     display: block;

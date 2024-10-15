@@ -29,7 +29,6 @@
               </div>
         </div>
     </div>
-    <!--  -->
     <div class="form-group divEmailAll">
         <div class="email">
             <label for="email">Email:</label>
@@ -40,10 +39,13 @@
     <div class="form-group divPasswdAll">
         <div class="passwd">
             <label for="passwd">Paswoord:</label>
-            <input id="passwd" type="password" formControlName="passwd" class="form-control">
-             <!-- TEST -->
-            <!-- <input id="passwd" type="text" formControlName="passwd" class="form-control"> -->
-             <!-- TEST tot hier -->
+            <!-- <div class="passwd-container"> -->
+                <!-- <input id="passwd" type="password" formControlName="passwd" class="form-control"> -->
+                <input id="passwd" [type]="showPassword ? 'text' : 'password'" formControlName="passwd" class="form-control">
+                <button type="button" (click)="togglePasswordVisibility()" class="toggle-passwd-btn">
+                    <img [src]="showPassword ? '../../../assets/icon/eye-symbols-show-visible.png' : '../../../assets/icon/eye-symbols-hide-visible.png'" alt="Toggle Password Visibility">
+                </button>
+            <!-- </div> -->
         </div>
         <div>
             <span>Het paswoord moet minstens bestaan uit:</span>

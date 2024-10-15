@@ -13,6 +13,7 @@ import { AuthService } from '../auth.service';
 export class SignUpComponent {
   form!: FormGroup;
   genders = ['man', 'vrouw'];
+  showPassword = false
 
   constructor(private fb : FormBuilder, private auth: AuthService) {}
 
@@ -36,6 +37,11 @@ export class SignUpComponent {
     console.log(this.form)
     console.log("errors: " + this.form.errors)
     console.log("errors passwd: " + this.passwd.errors)
+  }
+
+  togglePasswordVisibility():void {
+    this.showPassword = !this.showPassword;
+    console.log(this.showPassword)
   }
 
 
