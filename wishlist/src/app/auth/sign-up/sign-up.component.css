@@ -100,32 +100,26 @@ li {
 /* algemeente stijl passwd */
 .divPasswdAll{
     padding: 5px;
-    border: 1px black solid;
 }
 
 /*------------*/
-.passwd-label{
-    border: 1px blueviolet dashed;
-}
-
 .passwd{
-    border: 1px rgb(226, 214, 43) solid;
     position: relative;
     display: inline-block;
+    float: right;
 }
 
 .passwd input {
     /* float: right; */
     width: 370px;
-    border: 1px blue dotted;
     padding-right: 30px;
 }
 
-/* .passwd::after{
+.passwd-label::after{
 	content:"";
 	display: block;
 	clear: both;
-} */
+}
 
 /*------------*/
 .toggle-passwd-btn {
