@@ -10,7 +10,6 @@
                 <label for="email">Email:</label>
                 <input id="email" type="email" formControlName="email" class="form-control" placeholder="wishlist@gmail.com">
             </div>
-            <span *ngIf="email.touched && !email.valid" class="help-block">Geef een geldig email in.</span>
         </div>
         <div class="form-group divPasswdAll">
             <div class="passwd-label">
@@ -23,6 +22,9 @@
                 </div>
             </div>
         </div>
+        <span class="help-block" *ngIf="falsLoggin">
+            Wachtwoord of email onjuist
+        </span>
     </div>
     <div class="submit">
         <!-- WARN als je de submit disabled wilt hebben moet je deze gebruiken -->

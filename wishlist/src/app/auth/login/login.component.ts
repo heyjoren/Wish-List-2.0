@@ -18,6 +18,10 @@ export class LoginComponent {
   // keepHover: boolean  = false;
   // WARN tot hier
 
+  // TEST
+  falsLoggin: boolean = true;
+  // TEST tot hier
+
   constructor(private fb : FormBuilder, private auth: AuthService) {}
 
   ngOnInit(): void {
