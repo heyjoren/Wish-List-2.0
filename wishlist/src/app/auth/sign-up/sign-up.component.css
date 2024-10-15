@@ -103,14 +103,15 @@ li {
 }
 
 /*------------*/
+.passwd-label{
+    margin-bottom: 5px;
+}
 .passwd{
     position: relative;
-    display: inline-block;
     float: right;
 }
 
 .passwd input {
-    /* float: right; */
     width: 370px;
     padding-right: 30px;
 }
@@ -129,12 +130,17 @@ li {
     transform: translateY(-10%);
     border: none;
     background: none;
-    cursor: pointer
+    cursor: pointer;
+    border-radius: 50px;
 }
 
 .toggle-passwd-btn img {
     width: 25px;
     height: 20px;
+}
+
+.toggle-passwd-btn:hover {
+    background-color: rgba(128, 128, 128, 0.454);
 }
 
 /*------------------------*/
