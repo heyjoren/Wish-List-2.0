@@ -37,13 +37,10 @@ export class SignUpComponent {
 
   onSubmit(): void {
     console.log(this.form)
-    console.log("errors: " + this.form.errors)
-    console.log("errors passwd: " + this.passwd.errors)
   }
 
   togglePasswordVisibility():void {
     this.showPassword = !this.showPassword;
-    console.log(this.showPassword)
   }
 
   get voornaam() {
