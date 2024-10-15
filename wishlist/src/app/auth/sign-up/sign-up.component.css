@@ -16,6 +16,12 @@ li {
     margin-left: 25px;
 }
 
+/* Button algemeene stijl */
+button{
+    display: block;
+    margin: 10px auto 0;
+}
+
 /*------------------------*/
 /* algemeente stijl voornaam */
 .divVoornaamAll{
@@ -144,9 +150,32 @@ li {
 }
 
 /*------------------------*/
-button{
-    display: block;
-    margin: 10px auto 0;
+/* submit stijl */
+.tip{
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: white;
+    float: right;
+    transform: translate(-850%, -250%);
+    cursor: default;
+}
+
+.tip.active {
+    background-color: #31d2f2;
+    color: white;
+}
+
+.tip-tekst {
+    position: absolute;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+    
 }
 
 /*------------------------*/
@@ -165,4 +194,18 @@ button{
 /* error paswoord voldoen */
 .passwdValid{
     color: green;
+}
+
+/*------------*/
+/* error submit button */
+.tooltip {
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000; /* Zorg ervoor dat de tooltip boven andere elementen ligt */
+    color: red; /* De tekstkleur */
+    margin-top: 5px; /* Ruimte tussen de knop en de tooltip */
+    /* Voeg eventueel meer stijlen toe voor betere zichtbaarheid */
 }

@@ -68,8 +68,22 @@
             </div>
         <span *ngIf="passwd.touched && !passwd.valid" class="help-block">Het paswoord is niet veilig en voldoet niet aan de vereisten.</span>
     </div>
-    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">submit</button>
-    <!-- TEST -->
-    <!-- <button class="btn btn-primary" type="submit">submit</button> -->
-    <!-- TEST tot hier -->
+    <div class="submit">
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">submit</button>
+        <button class="btn btn-info tip" (mouseover)="showTooltip= true" (mouseleave)="showTooltip= false" 
+        (mousedown)="keepHover = true" 
+        (mouseup)="keepHover = false"
+        [ngClass]="{'active': keepHover}">?</button>
+        <span class="tip-tekst" *ngIf="showTooltip">Vul alstublieft alle verplichte velden in.
+            <br>
+            Nog in te vullen velden:
+            <ul>
+                <li *ngIf="!voornaam.valid">Voornaam</li>
+                <li *ngIf="!achternaam.valid">Achternaam</li>
+                <li *ngIf="!gender.value">Aanspreking</li>
+                <li *ngIf="!email.valid">Email</li>
+                <li *ngIf="!passwd.valid">Paswoord</li>
+            </ul>
+        </span>
+    </div>
 </form>

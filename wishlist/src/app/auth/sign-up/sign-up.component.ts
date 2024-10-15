@@ -13,7 +13,9 @@ import { AuthService } from '../auth.service';
 export class SignUpComponent {
   form!: FormGroup;
   genders = ['man', 'vrouw'];
-  showPassword = false
+  showPassword: boolean = false;
+  showTooltip: boolean  = false;
+  keepHover: boolean  = false;
 
   constructor(private fb : FormBuilder, private auth: AuthService) {}
 
@@ -44,6 +46,19 @@ export class SignUpComponent {
     console.log(this.showPassword)
   }
 
+  get voornaam() {
+    const naam = this.form.controls['naam'] as FormGroup;
+    return naam.controls['voornaam']
+  }
+
+  get achternaam() {
+    const naam = this.form.controls['naam'] as FormGroup;
+    return naam.controls['achternaam']
+  }
+
+  get gender() {
+    return this.form.controls['gender'];
+  }
 
 
   get email() {
