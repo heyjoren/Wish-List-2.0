@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -10,17 +11,23 @@ import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validatio
   styleUrl: './sign-up.component.css'
 })
 export class SignUpComponent {
-  form!: FormGroup
+  form!: FormGroup;
+  genders = ['man', 'vrouw'];
 
-  constructor(private fb : FormBuilder) {}
+  constructor(private fb : FormBuilder, private auth: AuthService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
+      'naam': this.fb.group({
+        'voornaam': [null, Validators.required],
+        'achternaam': [null, Validators.required]
+      }),
+      'gender':['man'],
       'email': [null, {
         validators: [Validators.required, Validators.email]
       }],
       'passwd': [null, {
-        validators: [Validators.required, Validators.minLength(8), this.passwdValidation]
+        validators: [Validators.required, Validators.minLength(8), this.auth.passwdValidation]
       }],
     });
   }
@@ -31,18 +38,7 @@ export class SignUpComponent {
     console.log("errors passwd: " + this.passwd.errors)
   }
 
-  passwdValidation(control: AbstractControl): ValidationErrors | null {
-    const value = control.value || '';
-    const hasUpperCase = /[A-Z]/.test(value);
-    const hasLowerCase = /[a-z]/.test(value);
-    const hasNumber = /\d/.test(value);
-    const hasSpecialChar = /[\W\_]/.test(value);
-    const test = /[\W]/.test(value);
 
-    const valid = hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
-
-    return !valid ? {passwordStrength: true} : null;
-  } 
 
   get email() {
     return this.form.controls['email'];

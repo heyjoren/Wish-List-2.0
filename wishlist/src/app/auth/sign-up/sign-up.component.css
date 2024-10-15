@@ -4,12 +4,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 500px;
+    margin-top: 20px;
 }
 
 form{
     width: 500px;
-    border: 1px solid green;
 }
 
 /* li elemneten algemeene stijl */
@@ -18,20 +17,77 @@ li {
 }
 
 /*------------------------*/
-/* algemeente stijl email */
-.divEmailAll{
-    border: 1px solid pink;
+/* algemeente stijl voornaam */
+.divVoornaamAll{
     padding: 5px;
 }
 
 /*------------*/
-.email{
-    border: 1px dashed blue;
+.voornaam input{
+    float: right;
+    width: 370px;
 }
 
+.voornaam::after{
+	content:"";
+	display: block;
+	clear: both;
+}
+
+/*------------------------*/
+/* algemeente stijl achternaam */
+.divAchternaamAll{
+    padding: 5px;
+}
+
+/*------------*/
+.achternaam input{
+    float: right;
+    width: 370px;
+}
+
+.achternaam::after{
+	content:"";
+	display: block;
+	clear: both;
+}
+
+/*------------------------*/
+/* algemeente stijl aanspreking */
+.divAansprekingAll{
+    padding: 5px;
+}
+
+/*------------*/
+
+.aanspreking label{
+    margin-right: 30px;
+}
+
+.radio{
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.radio label {
+    display: flex;
+    align-items: center;
+}
+
+.radio input {
+    margin-right: 5px;
+}
+
+/*------------------------*/
+/* algemeente stijl email */
+.divEmailAll{
+    padding: 5px;
+}
+
+/*------------*/
 .email input{
     float: right;
-    width: 350px;
+    width: 370px;
 }
 
 .email::after{
@@ -43,18 +99,14 @@ li {
 /*------------------------*/
 /* algemeente stijl passwd */
 .divPasswdAll{
-    border: 1px solid purple;
     padding: 5px;
 }
 
 /*------------*/
-.passwd{
-    border: 1px dashed black;
-}
 
 .passwd input {
     float: right;
-    width: 350px;
+    width: 370px;
 }
 
 .passwd::after{

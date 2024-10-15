@@ -1,22 +1,48 @@
 <div>
     <h1>Welkom</h1>
-    <p>gelieve u aan te melden op de site.</p>
+    <p>Gelieve u aan te melden op de site.</p>
 </div>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div formGroupName="naam">
+        <div class="form-group divVoornaamAll">
+            <div class="voornaam">
+                <label for="voornaam">Voornaam:</label>
+                <input id="voornaam" type="text" formControlName="voornaam" class="form-control" placeholder="Voornaam">
+            </div>
+        </div>
+        <div class="form-group divAchternaamAll">
+            <div class="achternaam">
+                <label for="achternaam">Achternaam:</label>
+                <input id="achternaam" type="text" formControlName="achternaam" class="form-control" placeholder="Achternaam">
+            </div>
+        </div>
+    </div>
+    <div class="form-group divAansprekingAll">
+        <div class="aanspreking">
+            <label>Aanspreking:</label>
+            <div class="radio" *ngFor="let gender of genders">
+                <label>
+                  <input type="radio" name="gender" [value]="gender" formControlName="gender"/>
+                    {{ gender }}
+                </label>
+              </div>
+        </div>
+    </div>
+    <!--  -->
     <div class="form-group divEmailAll">
         <div class="email">
-            <label for="email">email:</label>
-            <input id="email" type="email" formControlName="email" class="form-control">
+            <label for="email">Email:</label>
+            <input id="email" type="email" formControlName="email" class="form-control" placeholder="wishlist@gmail.com">
         </div>
         <span *ngIf="email.touched && !email.valid" class="help-block">Geef een geldig email in.</span>
     </div>
     <div class="form-group divPasswdAll">
         <div class="passwd">
-            <label for="passwd">paswoord:</label>
-            <!-- <input id="passwd" type="password" formControlName="passwd" class="form-control"> -->
+            <label for="passwd">Paswoord:</label>
+            <input id="passwd" type="password" formControlName="passwd" class="form-control">
              <!-- TEST -->
-            <input id="passwd" type="text" formControlName="passwd" class="form-control">
+            <!-- <input id="passwd" type="text" formControlName="passwd" class="form-control"> -->
              <!-- TEST tot hier -->
         </div>
         <div>
