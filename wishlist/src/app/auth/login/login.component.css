@@ -1,0 +1,163 @@
+/* center alles van de sign up component */
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+form{
+    width: 500px;
+}
+
+/* li elemneten algemeene stijl */
+li {
+    margin-left: 25px;
+}
+
+/* Button algemeene stijl */
+button{
+    display: block;
+    margin: 10px auto 0;
+}
+
+/*------------------------*/
+/* header */
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header p {
+    align-self: flex-start;
+    margin-left: 0;
+}
+
+
+/*------------------------*/
+/* algemeente stijl email */
+.divEmailAll{
+    padding: 5px;
+}
+
+/*------------*/
+.email input{
+    float: right;
+    width: 370px;
+}
+
+.email::after{
+	content:"";
+	display: block;
+	clear: both;
+}
+
+/*------------------------*/
+/* algemeente stijl passwd */
+.divPasswdAll{
+    padding: 5px;
+}
+
+/*------------*/
+.passwd-label{
+    margin-bottom: 5px;
+}
+.passwd{
+    position: relative;
+    float: right;
+}
+
+.passwd input {
+    width: 370px;
+    padding-right: 30px;
+}
+
+.passwd-label::after{
+	content:"";
+	display: block;
+	clear: both;
+}
+
+/*------------*/
+.toggle-passwd-btn {
+    position: absolute;
+    top: 0%;
+    right: 10px;
+    transform: translateY(-10%);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 50px;
+}
+
+.toggle-passwd-btn img {
+    width: 25px;
+    height: 20px;
+}
+
+.toggle-passwd-btn:hover {
+    background-color: rgba(128, 128, 128, 0.454);
+}
+
+/*------------------------*/
+/* submit stijl */
+.tip{
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    color: white;
+    float: right;
+    transform: translate(-850%, -250%);
+    cursor: default;
+}
+
+.tip.active {
+    background-color: #31d2f2;
+    color: white;
+}
+
+.tip-tekst {
+    position: absolute;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 5px;
+    
+}
+
+/*------------------------*/
+/* error mssg */
+.help-block{
+    color: red;
+    font-style: italic;
+}
+
+/* error paswoord niet voldoen */
+.passwdInValid{
+    color: red;
+}
+
+/*------------*/
+/* error paswoord voldoen */
+.passwdValid{
+    color: green;
+}
+
+/*------------*/
+/* error submit button */
+.tooltip {
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000; /* Zorg ervoor dat de tooltip boven andere elementen ligt */
+    color: red; /* De tekstkleur */
+    margin-top: 5px; /* Ruimte tussen de knop en de tooltip */
+    /* Voeg eventueel meer stijlen toe voor betere zichtbaarheid */
+}
