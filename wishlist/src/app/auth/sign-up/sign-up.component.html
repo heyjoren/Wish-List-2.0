@@ -37,15 +37,15 @@
         <span *ngIf="email.touched && !email.valid" class="help-block">Geef een geldig email in.</span>
     </div>
     <div class="form-group divPasswdAll">
-        <div class="passwd">
+        <div class="passwd-label">
             <label for="passwd">Paswoord:</label>
-            <!-- <div class="passwd-container"> -->
+            <div class="passwd">
                 <!-- <input id="passwd" type="password" formControlName="passwd" class="form-control"> -->
                 <input id="passwd" [type]="showPassword ? 'text' : 'password'" formControlName="passwd" class="form-control">
                 <button type="button" (click)="togglePasswordVisibility()" class="toggle-passwd-btn">
                     <img [src]="showPassword ? '../../../assets/icon/eye-symbols-show-visible.png' : '../../../assets/icon/eye-symbols-hide-visible.png'" alt="Toggle Password Visibility">
                 </button>
-            <!-- </div> -->
+            </div>
         </div>
         <div>
             <span>Het paswoord moet minstens bestaan uit:</span>

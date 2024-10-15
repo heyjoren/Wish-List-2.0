@@ -104,38 +104,44 @@ li {
 }
 
 /*------------*/
-
-.passwd{
+.passwd-label{
     border: 1px blueviolet dashed;
 }
 
-.passwd input {
-    float: right;
-    width: 370px;
-    border: 1px blue dotted;
+.passwd{
+    border: 1px rgb(226, 214, 43) solid;
+    position: relative;
+    display: inline-block;
 }
 
-.passwd::after{
+.passwd input {
+    /* float: right; */
+    width: 370px;
+    border: 1px blue dotted;
+    padding-right: 30px;
+}
+
+/* .passwd::after{
 	content:"";
 	display: block;
 	clear: both;
-}
+} */
 
 /*------------*/
-/* .toggle-passwd-btn {
-    cursor: pointer;
-    background: none; */
-    /* right: 10px; */
-    /* top: 50%; */
-    /* transform: translateY(-50%);
-    border: 1px solid green;
-    float: right;
-} */
+.toggle-passwd-btn {
+    position: absolute;
+    top: 0%;
+    right: 10px;
+    transform: translateY(-10%);
+    border: none;
+    background: none;
+    cursor: pointer
+}
 
-/* .toggle-passwd-btn img {
+.toggle-passwd-btn img {
     width: 25px;
     height: 20px;
-} */
+}
 
 /*------------------------*/
 button{
