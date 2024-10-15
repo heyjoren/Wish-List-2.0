@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, tap, Subject   } from 'rxjs';
+import { Observable, map, tap, Subject, from   } from 'rxjs';
 import { bedrag } from './bedrag.model';
+import { collection, collectionData, CollectionReference, deleteDoc, doc, DocumentReference, Firestore, setDoc } from '@angular/fire/firestore';
+import { formatCurrency } from '@angular/common';
 
 
 @Injectable({
@@ -12,48 +13,41 @@ export class BedragService {
   bedragenUpdated = new Subject<bedrag[]>();
   selectedItemId: string | null = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(private db: Firestore) { }
 
   getBedragen(): Observable<bedrag[]> {
-    const url = 'http://localhost:3000/bedrag';
-    return this.http.get<bedrag[]>(url);
+    return collectionData<bedrag>(
+      collection(this.db, 'bedrag') as CollectionReference<bedrag>,
+      { idField: 'id' }
+    )
   }
 
   getBedragenPut(): void {
-    const url = 'http://localhost:3000/bedrag';
-    this.http.get<bedrag[]>(url).subscribe({
+    this.getBedragen().subscribe({
       next: (response: bedrag[]) => {
         this.bedragen = response;
         this.bedragenUpdated.next(this.bedragen);
       },
-      error: (error) => console.log('error: ', error)
+    error: (error) => console.log('error: ', error)
     });
   }
 
   getLastBedragen(): Observable<bedrag[]> {
-    const url = 'http://localhost:3000/bedrag';
-
-    return this.http.get<bedrag[]>(url).pipe(
+    return this.getBedragen().pipe(
       map(bedragen => bedragen.slice(-5))
     );
   }
 
-  addBedrag(bedrag: bedrag): Observable<bedrag> {
-    const url = 'http://localhost:3000/bedrag';
-    return this.http.post<bedrag>(url, bedrag).pipe(
-      tap(() => {
-        this.getBedragenPut();
-      })
-    );
+
+  addBedrag(bedrag: bedrag) {
+    const newID = doc(collection(this.db, 'id')).id;
+    const ref = doc(this.db, 'bedrag/' + newID);
+    return from (setDoc(ref, bedrag));
   }
 
-  deleteBedrag(id: string): Observable<any> {
-    const url = 'http://localhost:3000/bedrag/' + id;
-    return this.http.delete(url).pipe(
-      tap(() => {
-        this.getBedragenPut();
-      })
-    )
+  deleteBedrag(id: string) {
+    const bedragRef = doc(this.db, 'bedrag/' + id) as DocumentReference<bedrag>;
+    return from(deleteDoc(bedragRef));
   }
 
 }
