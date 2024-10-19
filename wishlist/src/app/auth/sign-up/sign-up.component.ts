@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, NgForm, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+import { user } from '../user/user.module';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,8 +18,9 @@ export class SignUpComponent {
   showPassword: boolean = false;
   showTooltip: boolean  = false;
   keepHover: boolean  = false;
+  user: user = new user();
 
-  constructor(private fb : FormBuilder, private auth: AuthService) {}
+  constructor(private fb : FormBuilder, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -30,13 +33,27 @@ export class SignUpComponent {
         validators: [Validators.required, Validators.email]
       }],
       'passwd': [null, {
-        validators: [Validators.required, Validators.minLength(8), this.auth.passwdValidation]
+        validators: [Validators.required, Validators.minLength(8), this.authService.passwdValidation]
       }],
     });
   }
 
   onSubmit(): void {
-    console.log(this.form)
+    this.user.voornaam = this.form.controls['naam'].value.voornaam;
+    this.user.achternaam = this.form.controls['naam'].value.achternaam;
+    this.user.aanspreking = this.form.value.gender;
+    this.user.email = this.form.value.email;
+    this.user.passwd = this.form.value.passwd;
+
+    this.authService.signUp(this.user)
+    .then((res) => {
+      if(res == 'success'){
+        this.router.navigate(['login']);
+      }
+      else {
+        alert(res);
+      }
+    });
   }
 
   togglePasswordVisibility():void {
