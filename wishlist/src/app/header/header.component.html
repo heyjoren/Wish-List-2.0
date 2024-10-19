@@ -1,15 +1,16 @@
 <div class="col-md-12">
     <ul class="nav nav-tabs justify-content-end">
-      <li class="nav-item"><a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact : true}">Home</a></li>
+      <li class="nav-item"><a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/bedragen" routerLinkActive="active">Bedragen</a></li>
       <li class="nav-item"><a class="nav-link" routerLink="/items" routerLinkActive="active">Items</a></li>
         <div class="ms-auto">
             <li class="nav-item dropdown right-align" routerLinkActive="active" #accountMenu="routerLinkActive">
                 <a class="nav-link dropdown-toggle" [class.active]="accountMenu.isActive" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
                 <div class="dropdown-menu dropdown-menu-end">
-                <a class="dropdown-item" routerLink="/login" routerLinkActive="active">Login</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item signUp" routerLink="/signUp" routerLinkActive="active">Sign up</a>
+                    <a *ngIf="!authService.isLoggedIn()" class="dropdown-item" routerLink="/login" routerLinkActive="active">Login</a>
+                    <a *ngIf="authService.isLoggedIn()" class="dropdown-item logout" (click)="Logout()">Logout</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item signUp" routerLink="/signUp" routerLinkActive="active">Sign up</a>
                 </div>
             </li>
         </div>
