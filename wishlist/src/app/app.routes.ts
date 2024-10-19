@@ -7,8 +7,11 @@ import { ItemDetailComponent } from './item-component/item-detail/item-detail.co
 import { AanpasItemComponent } from './item-component/aanpas-item/aanpas-item.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { LoginComponent } from './auth/login/login.component';
+import { WelkomComponent } from './welkom/welkom.component';
 
 export const routes: Routes = [
+
+    {path: '', component: WelkomComponent },
 
     {path: 'home', component: HomeComponent },
 
