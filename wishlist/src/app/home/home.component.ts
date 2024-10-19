@@ -34,6 +34,7 @@ export class HomeComponent {
     });
 
     this.bedragService.getBedragenPut();
+    this.bedragService.getBedragen();
   }
 
 }

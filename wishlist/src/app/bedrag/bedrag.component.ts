@@ -9,6 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { DialogService } from '../dialog.service';
 import { NewBedragComponent } from './new-bedrag/new-bedrag.component';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -20,11 +21,18 @@ import { NewBedragComponent } from './new-bedrag/new-bedrag.component';
 })
 export class BedragComponent {
   bedragen: bedrag[] = [];
+  bedragenSubscription!: Subscription;
 
   constructor(protected bedragService: BedragService, private router: Router, private dialogService: DialogService) {}
 
   ngOnInit(): void {
-    this.bedragService.getBedragenPut()
+    this.bedragService.getBedragenPut();
+  }
+
+  ngOnDestroy(): void {
+    if(this.bedragenSubscription) {
+      this.bedragenSubscription.unsubscribe();
+    }
   }
 
   getBedragen(){

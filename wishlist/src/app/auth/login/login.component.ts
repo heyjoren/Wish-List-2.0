@@ -13,10 +13,6 @@ import { AuthService } from '../auth.service';
 export class LoginComponent {
   form!: FormGroup;
   showPassword: boolean = false;
-  // WARN als je het vraagteken na submit wilt weg halen.
-  // showTooltip: boolean  = false;
-  // keepHover: boolean  = false;
-  // WARN tot hier
 
   // TEST
   falsLoggin: boolean = true;

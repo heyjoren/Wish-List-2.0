@@ -26,18 +26,31 @@ export class AanpasItemComponent {
   // img: File | null =null;
   selectedFile: File | null = null;
   fabrikant: string = '';
+  // nieuw
+  idFromRoute: string | null = null;
+
 
   constructor(private itemService: ItemService, private route: ActivatedRoute, private router: Router, private imgNamePipe: ImgNamePipe){ }
 
   ngOnInit(){
-    this.route.params.subscribe((params: Params) => {
-      this.itemService.getItem(params['id']!).subscribe({ //id mag niet 0 zijn.
-        next: (response: item) => {
-           this.item = response;
-           this.vulInput();
-         },
-         error: (error) => console.log('error: ', error)
-     });
+    this.route.paramMap
+      .subscribe((params) => {
+      this.idFromRoute = params.get('id');
+
+      this.route.params.subscribe((params: Params) => {
+        this.itemService.getItem(params['id']!).subscribe({
+          next: (response: item | undefined) => {
+            if (response) {
+            this.item = response;
+            this.vulInput();
+            }
+            else {
+              console.log('Geen item gevonden');
+            }
+          },
+          error: (error) => console.log('error: ', error)
+        });
+      });
     });
   }
 
@@ -70,12 +83,13 @@ export class AanpasItemComponent {
     this.item.fabrikant = this.fabrikant;
     this.item.beschrijving = this.beschrijving;
 
-
-    this.itemService.updateItem(this.item).subscribe(
-      (response: item) => {
+    this.itemService.updateItem(this.item, this.idFromRoute!) // this.idFromRoute! het ! is om te zeggen dat het niet null mag zijn.
+      .then(() => {
         this.router.navigate(['items']);
-      }
-    )
+      })
+      .catch((error) => {
+        console.log('error: ', error);
+      });
   }
 
   // aanpassen() {

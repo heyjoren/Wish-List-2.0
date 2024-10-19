@@ -27,27 +27,6 @@
         </span>
     </div>
     <div class="submit">
-        <!-- WARN als je de submit disabled wilt hebben moet je deze gebruiken -->
-        <!-- <button class="btn btn-primary" type="submit" [disabled]="!form.valid">submit</button> -->
-        <!-- WARN tot hier -->
-
-        <!-- WARN als je de submit button nooit disabled wilt hebben moet je deze gebruieken. -->
         <button class="btn btn-primary" type="submit">submit</button>
-         <!-- WARN tot hier -->
-
-         <!-- WARN als je de submit tip niet wilt tonen moet je het volgende weg doen. -->
-        <!-- <button class="btn btn-info tip" (mouseover)="showTooltip= true" (mouseleave)="showTooltip= false" 
-        (mousedown)="keepHover = true" 
-        (mouseup)="keepHover = false"
-        [ngClass]="{'active': keepHover}">?</button>
-        <span class="tip-tekst" *ngIf="showTooltip">Vul alstublieft alle verplichte velden in.
-            <br>
-            Nog in te vullen velden:
-            <ul>
-                <li *ngIf="!email.valid">Email</li>
-                <li *ngIf="!passwd.valid">Paswoord</li>
-            </ul>
-        </span> -->
-        <!-- WARN tot hier -->
     </div>
 </form>

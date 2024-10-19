@@ -32,8 +32,10 @@ export class ItemDetailComponent implements OnInit {
 
   onLoadItem(id: string): void {
     this.itemService.getItem(id).subscribe({
-     next: (response: item) => {
+     next: (response: item | undefined) => {
+      if (response) {
         this.item = response;
+      }
       },
       error: (error) => console.log('error: ', error)
   });
