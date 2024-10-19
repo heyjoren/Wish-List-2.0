@@ -10,7 +10,7 @@ import { LoginComponent } from './auth/login/login.component';
 
 export const routes: Routes = [
 
-    {path: '', component: HomeComponent },
+    {path: 'home', component: HomeComponent },
 
     {path: 'bedragen', component: BedragComponent, children: [
         {path: 'add', component: NewBedragComponent}
