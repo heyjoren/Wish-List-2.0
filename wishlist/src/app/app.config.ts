@@ -8,24 +8,16 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { routes } from './app.routes';
 // import { environment } from '../DB/environments/environment'
 import { environment } from '../DB/environments/environment.development';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
-  // providers: [provideRouter(routes)]
 
-  // Wish list
-  // providers: [
-  //   provideRouter(routes),  
-  //   provideAnimationsAsync(),
-  //   provideHttpClient()
-  // ]
-
-  // Wish list 2.0
   providers: [
-    provideRouter(routes),  
+    provideRouter(routes),
     importProvidersFrom([
       provideFirebaseApp(() => initializeApp(environment)),
       provideFirestore(()=>getFirestore()),
-      provideAuth(() => getAuth())
+      provideAuth(() => getAuth()),
     ])
   ]
 };

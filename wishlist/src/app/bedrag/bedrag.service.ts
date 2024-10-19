@@ -13,7 +13,7 @@ export class BedragService {
   bedragenUpdated = new Subject<bedrag[]>();
   selectedItemId: string | null = null;
 
-  constructor(private db: Firestore) { }
+  constructor(private db: Firestore ) { }
 
   getBedragen(): Observable<bedrag[]> {
     return collectionData<bedrag>(
@@ -23,7 +23,7 @@ export class BedragService {
   }
 
   getBedragenPut(): void {
-    this.getBedragen().subscribe({
+    this.getBedragen().subscribe({  
       next: (response: bedrag[]) => {
         this.bedragen = response;
         this.bedragenUpdated.next(this.bedragen);

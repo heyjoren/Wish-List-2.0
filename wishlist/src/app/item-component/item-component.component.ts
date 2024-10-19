@@ -24,6 +24,7 @@ export class ItemComponentComponent {
 
   ngOnInit(): void {
     this.itemService.getItemsnPut();
+    this.bedragService.getBedragen();
     this.bedragService.getBedragenPut();
   }
 

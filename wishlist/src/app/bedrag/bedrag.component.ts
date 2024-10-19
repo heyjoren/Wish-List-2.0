@@ -26,7 +26,7 @@ export class BedragComponent {
   constructor(protected bedragService: BedragService, private router: Router, private dialogService: DialogService) {}
 
   ngOnInit(): void {
-    this.bedragService.getBedragenPut()
+    this.bedragService.getBedragenPut();
   }
 
   ngOnDestroy(): void {
