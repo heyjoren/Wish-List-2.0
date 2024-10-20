@@ -3,7 +3,7 @@ export class item {
     naam: string;
     prijs: string;
     beschrijving: string;
-    img: string;
+    img?: string;
     fabrikant: string;
   
     constructor() {
