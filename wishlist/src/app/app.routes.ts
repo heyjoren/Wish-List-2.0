@@ -8,7 +8,7 @@ import { AanpasItemComponent } from './item-component/aanpas-item/aanpas-item.co
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { LoginComponent } from './auth/login/login.component';
 import { WelkomComponent } from './welkom/welkom.component';
-import { deactivateGaurd, loggedInChildGuard, loggedInGaurd } from './auth/route-access.guard';
+import { deactivateGaurd, isLoggedInGaurd, loggedInChildGuard, loggedInGaurd } from './auth/route-access.guard';
 
 export const routes: Routes = [
 
@@ -27,8 +27,8 @@ export const routes: Routes = [
     {path: 'items/:id/change', component: AanpasItemComponent, canActivateChild: [loggedInChildGuard] , canDeactivate: [deactivateGaurd], children: [
         {path: '', component: ItemDetailComponent, data: { showKoopButton: false } },
     ]},
-    {path: 'signUp', component: SignUpComponent },
-    {path: 'login', component: LoginComponent },
+    {path: 'signUp', component: SignUpComponent, canActivate: [isLoggedInGaurd] },
+    {path: 'login', component: LoginComponent, canActivate: [isLoggedInGaurd] },
     
 
 ];

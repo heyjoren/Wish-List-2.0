@@ -3,7 +3,15 @@ import { CanActivateChildFn, CanActivateFn, CanDeactivateFn, Router } from '@ang
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 
-export const routeAccessGuard: CanActivateFn = (route, state) => {
+export const isLoggedInGaurd: CanActivateFn = (route, state) => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+  if(authService.isLoggedIn())
+  {
+    router.navigate(['']);
+    return false;
+  }
   return true;
 };
 
