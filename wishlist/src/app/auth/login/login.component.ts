@@ -35,11 +35,14 @@ export class LoginComponent implements OnInit {
     this.falsLoggin = false;
   }
 
+  /**
+   * normale user:
+   *    email:  joren@joren.com
+   *    passwd: Joren123*
+   */
   onSubmit(): void {
-    console.log(this.form)
     this.user.email = this.form.value.credentials.email;
     this.user.passwd = this.form.value.credentials.passwd;
-    console.log(this.user)
     
     this.authService.login(this.user)
     .then( (response) => {
