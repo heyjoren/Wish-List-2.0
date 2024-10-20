@@ -11,7 +11,7 @@
                     <a *ngIf="!authService.isLoggedIn()" class="dropdown-item" routerLink="/login" routerLinkActive="active">Login</a>
                     <a *ngIf="authService.isLoggedIn()" class="dropdown-item logout" (click)="Logout()">Logout</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item signUp" routerLink="/signUp" routerLinkActive="active">Sign up</a>
+                    <a *ngIf="!authService.isLoggedIn()" class="dropdown-item signUp" routerLink="/signUp" routerLinkActive="active">Sign up</a>
                 </div>
             </li>
         </div>

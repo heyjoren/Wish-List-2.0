@@ -23,17 +23,38 @@ export class NewItemComponent {
   beschrijving: string = '';
   img: string = '';
   fabrikant: string = '';
+  filled: boolean = false;
+  toevoegenSwitch: boolean= false;
 
   constructor(private Dialogservice: DialogService, private dialogref: MatDialogRef<NewItemComponent>, 
     private itemService: ItemService, private router: Router, private http: HttpClient, private imgNamePipe: ImgNamePipe) {}
 
 
-  closeDialog(){
+  closeDialog(): void 
+  {
+    if(!this.toevoegenSwitch)
+    {    
+      const prijsString: string = this.prijs.toFixed(2).toString();
+
+      if(this.naam !== "" || this.fabrikant !== "" || prijsString !== '0.00')
+      {
+        this.filled = true;
+      }
+
+      if(this.filled)
+      {
+        const confirmClose = confirm('Je hebt nog niet opgeslagen. Ben je zeker dat je niet wilt opslaan?');
+        if (!confirmClose) {
+          return;
+        }
+      }
+    }
     this.Dialogservice.closeDialog(this.dialogref)
     this.router.navigate(['items']);
   }
 
   toevoegen(){
+    this.toevoegenSwitch = true
     const prijsString: string = this.prijs.toFixed(2).toString();
 
     const nieuwitem = {
@@ -44,13 +65,12 @@ export class NewItemComponent {
       img: this.imgNamePipe.transform(this.img),
     }
 
-    console.log('nieuwitem: ',nieuwitem);
-
     if (nieuwitem.naam !== "" && nieuwitem.prijs !== "0" && nieuwitem.fabrikant !== "")
       {
         this.itemService.addItems(nieuwitem).subscribe({
           next: () => {
             this.closeDialog();
+            this.router.navigate(['items']);
           },
           error: (error) => {
             console.error('Error: ', error);
