@@ -35,6 +35,7 @@
             <input id="email" type="email" formControlName="email" class="form-control" placeholder="wishlist@gmail.com">
         </div>
         <span *ngIf="email.touched && !email.valid" class="help-block">Geef een geldig email in.</span>
+        <span *ngIf="email.touched && email.errors?.['emailExists']" class="help-block">Het email is al geregistreerd.</span>
     </div>
     <div class="form-group divPasswdAll">
         <div class="passwd-label">
@@ -68,7 +69,10 @@
         <span *ngIf="passwd.touched && !passwd.valid" class="help-block">Het paswoord is niet veilig en voldoet niet aan de vereisten.</span>
     </div>
     <div class="submit">
-        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">submit</button>
+        <!-- <button class="btn btn-primary" type="submit" [disabled]="!form.valid">submit</button> -->
+        <!-- TEST -->
+        <button class="btn btn-primary" type="submit">submit</button>
+        <!-- TEST tot hier -->
         <button class="btn btn-info tip" (mouseover)="showTooltip= true" (mouseleave)="showTooltip= false" 
         (mousedown)="keepHover = true" 
         (mouseup)="keepHover = false"
