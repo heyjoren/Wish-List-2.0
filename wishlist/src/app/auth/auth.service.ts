@@ -1,16 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
 import { doc, Firestore, setDoc } from '@angular/fire/firestore';
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { user } from './user/user.module';
+import { Token } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor( private router: Router, private auth: Auth, private db: Firestore) { }
+  token: string | null = null;
+
+  constructor( private router: Router, private auth: Auth, private db: Firestore) { 
+    if(localStorage.getItem('token'))
+    {
+      this.token = localStorage.getItem('token');
+    }
+  }
 
   passwdValidation(control: AbstractControl): ValidationErrors | null {
     const value = control.value || '';
@@ -50,5 +58,36 @@ export class AuthService {
       console.log(error);
       throw new Error('Error saving user data: ' + error);
     }
+  }
+
+  login(user: user){
+    return signInWithEmailAndPassword(this.auth, user.email, user.passwd)
+    .then( () => {
+      return this.auth.currentUser?.getIdToken()
+      .then(
+        (token: string) => {
+          this.token = token;
+          localStorage.setItem('token', token);
+          return true
+        }
+      );
+    })
+    .catch( 
+      error => {
+        console.log(error);
+        return false;
+      }
+    );
+  }
+
+  isLoggedIn():boolean {
+    return this.token != null;
+  }
+
+  logOut(): void {
+    this.auth.signOut();
+    this.token = null;
+    localStorage.removeItem('token');
+    this.router.navigate(['login'])
   }
 }

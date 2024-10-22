@@ -1,38 +1,55 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ActivatedRoute, Params, Router, RouterOutlet } from '@angular/router';
 import { ItemService } from '../item.service';
 import { item } from '../item.model';
 import { ImgNamePipe } from '../../img-name.pipe';
-// import { FileReader } from 'file-reader';
+import { CanComponentDeactivate } from '../../auth/route-access.guard';
+import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-aanpas-item',
   standalone: true,
-  imports: [MatIconModule, MatTooltipModule, RouterOutlet, FormsModule],
+  imports: [MatIconModule, MatTooltipModule, RouterOutlet, FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './aanpas-item.component.html',
   styleUrl: './aanpas-item.component.css',
   providers: [ImgNamePipe],
 })
-export class AanpasItemComponent {
+export class AanpasItemComponent implements CanComponentDeactivate {
   item: item = new item();
-  naam: string = '';
-  prijs: number = 0;
-  beschrijving: string = '';
-  img: string = '';
-  // img: File | null =null;
-  selectedFile: File | null = null;
-  fabrikant: string = '';
+  // naam: string = '';
+  // prijs: number = 0;
+  // beschrijving: string = '';
+  // img: string = '';
+  // // img: File | null =null;
+  // selectedFile: File | null = null;
+  // fabrikant: string = '';
+
   // nieuw
   idFromRoute: string | null = null;
+  saved: boolean = false;
+  filled: boolean = false;
+  toevoegenSwitch: boolean= false;
+  file: File | null = null;
+  form!: FormGroup;
+  isSubmitting: boolean = false;
 
 
-  constructor(private itemService: ItemService, private route: ActivatedRoute, private router: Router, private imgNamePipe: ImgNamePipe){ }
+  constructor(private itemService: ItemService, private route: ActivatedRoute, private router: Router, private imgNamePipe: ImgNamePipe,
+    private fb : FormBuilder){ }
 
   ngOnInit(){
+    this.form = this.fb.group({
+      naam: ['', Validators.required],
+      prijs: ['', Validators.required],
+      beschrijving: [''],
+      fabrikant: ['', Validators.required],
+      });
+
     this.route.paramMap
       .subscribe((params) => {
       this.idFromRoute = params.get('id');
@@ -55,33 +72,72 @@ export class AanpasItemComponent {
   }
 
   vulInput(){
-    this.naam = this.item.naam;
-    this.prijs = parseFloat(this.item.prijs);
-    this.beschrijving = this.item.beschrijving;
-    if (this.item.img && this.item.img.trim().length > 0){
-      this.selectedFile = new File([/* data */], this.item.img);
-    }
-    this.fabrikant = this.item.fabrikant;
+    this.form.setValue({
+      'naam' : this.item.naam,
+      'prijs' : this.item.prijs,
+      'beschrijving' : this.item.beschrijving,
+      'fabrikant' : this.item.fabrikant
+
+    })
   }
 
-  onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
-  }
+  // onFileSelected(event: any) {
+  //   this.selectedFile = event.target.files[0];
+  // }
 
   closeSccreen(){
+    if(!this.toevoegenSwitch)
+      {    
+        // const prijsString: string = this.prijs.toFixed(2).toString();
+        console.log(this.form.value.prijs.toFixed(2))
+        const prijsString: string = this.form.value.prijs.toFixed(2).toString();
+  
+        if(this.form.value.naam !== "" || this.form.value.fabrikant !== "" || prijsString !== '0.00')
+        {
+          this.filled = true;
+        }
+  
+        if(this.filled)
+        {
+          const confirmClose = confirm('Je hebt nog niet opgeslagen. Ben je zeker dat je niet wilt opslaan?');
+          if (!confirmClose) {
+            return;
+          }
+        }
+      }
     this.router.navigate(['items']);
   }
 
-  aanpassen(){
-    if(this.img.includes("C:\\fakepath\\"))
-    {
-      this.item.img = this.imgNamePipe.transform(this.img)
-    } 
+  async aanpassen(){
+    if (this.isSubmitting) return;
+    this.isSubmitting = true;
+    this.saved = true;
 
-    this.item.naam = this.naam;
-    this.item.prijs = this.prijs.toFixed(2).toString();
-    this.item.fabrikant = this.fabrikant;
-    this.item.beschrijving = this.beschrijving;
+    if(this.file)
+    {
+      if(this.item.img)
+      {
+        await this.itemService.deleteImg(this.item.img);
+      }
+
+      const path = 'item/' + this.idFromRoute + '/' + this.file.name;
+      this.item.img = await this.itemService.uploadImg(path, this.file);
+    }
+
+    let prijsString: string = "";
+    prijsString = this.form.value.prijs.toString();
+
+
+    if(prijsString.length < 4)
+    {
+      prijsString = this.form.value.prijs.toFixed(2).toString();
+    }
+
+    this.item.naam = this.form.value.naam;
+    this.item.prijs = prijsString;
+    this.item.fabrikant = this.form.value.fabrikant;
+    this.item.beschrijving = this.form.value.beschrijving;
+
 
     this.itemService.updateItem(this.item, this.idFromRoute!) // this.idFromRoute! het ! is om te zeggen dat het niet null mag zijn.
       .then(() => {
@@ -92,50 +148,22 @@ export class AanpasItemComponent {
       });
   }
 
-  // aanpassen() {
-  //   this.item.naam = this.naam;
-  //   this.item.prijs = this.prijs.toFixed(2).toString();
-  //   this.item.fabrikant = this.fabrikant;
-  //   this.item.beschrijving = this.beschrijving;
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if (!this.saved)
+    {
+      return confirm('Je hebt nog niet opgeslagen. Ben je zeker dat je niet wilt opslaan?');
+    }
+    return true;
+  }
 
-  //   if (this.selectedFile) {
-  //     this.convertFileToString(this.selectedFile)
-  //       .then((blobString) => {
-  //         const base64Data = blobString.split(',')[1];
-  //         this.item.img = base64Data;
-  //         this.item.img = blobString;
-  //         this.itemService.updateItem(this.item).subscribe(
-  //           (response: item) => {
-  //             this.router.navigate(['items']);
-  //           }
-  //         );
-  //       })
-  //       .catch((error) => {
-  //         console.error('Error converting file to string:', error);
-  //       });
-  //   } else {
-  //     this.item.img = '';
-  //     this.itemService.updateItem(this.item).subscribe(
-  //       (response: item) => {
-  //         this.router.navigate(['items']);
-  //       }
-  //     );
-  //   }
-  // }
-  
-  // convertFileToString(file: File): Promise<string> {
-  //   return new Promise((resolve, reject) => {
-  //     const fileReader = new FileReader();
-  //     fileReader.onload = () => {
-  //       const blobString = fileReader.result as string;
-  //       resolve(blobString);
-  //     };
-  //     fileReader.onerror = (error) => {
-  //       reject(error);
-  //     };
-  //     fileReader.readAsDataURL(file);
-  //   });
-  
-  // }
+  selectImg(event: Event): void {
+    const target = event.target as HTMLInputElement;
+
+    if (target.files && target.files[0])
+    {
+      this.file = target.files[0];
+
+    }
+  }
   
 }

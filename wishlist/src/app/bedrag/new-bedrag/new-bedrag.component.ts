@@ -26,10 +26,26 @@ export class NewBedragComponent {
   bedrag: number = 0;
   teken: string = '+';
   bedragen: bedrag[] = [];
+  filled: boolean = false;
 
 
   closeDialog(): void 
   {
+    const bedragString: string = this.bedrag.toFixed(2).toString();
+    const formattedDatum: string = this.datePipe.transform(this.datum, 'dd-MM-yyyy') || '';
+
+    if(bedragString !== "0.00" || formattedDatum !== "")
+    {
+      this.filled = true;
+    }
+
+    if(this.filled)
+    {
+      const confirmClose = confirm('Je hebt nog niet opgeslagen. Ben je zeker dat je niet wilt opslaan?');
+      if (!confirmClose) {
+        return;
+      }
+    }
     this.Dialogservice.closeDialog(this.dialogref)
     this.router.navigate(['bedragen']);
   }
@@ -48,7 +64,8 @@ export class NewBedragComponent {
       {
         this.bedragService.addBedrag(nieuwbedrag).subscribe({
           next: () => {
-            this.Dialogservice.closeDialog(this.dialogref)
+            this.Dialogservice.closeDialog(this.dialogref);
+            this.router.navigate(['bedragen']);
           },
           error: (error) => {
             console.error('Error: ', error);
