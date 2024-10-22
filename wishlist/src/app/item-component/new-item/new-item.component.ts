@@ -19,13 +19,6 @@ import { CommonModule } from '@angular/common';
   providers: [ImgNamePipe],
 })
 export class NewItemComponent {
-  // naam: string = '';
-  // prijs: number = 0;
-  // beschrijving: string = '';
-  // // TEST
-  // img: string = '';
-  // // TEST tot hier
-  // fabrikant: string = '';
   filled: boolean = false;
   toevoegenSwitch: boolean= false;
   file: File | null = null;

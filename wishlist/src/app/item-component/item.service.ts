@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, from, map, tap } from 'rxjs';
 import { item } from './item.model';
-import { collection, collectionData, CollectionReference, deleteDoc, doc, docData, DocumentReference, Firestore, setDoc, updateDoc } from '@angular/fire/firestore';
-import { getDownloadURL, ref, uploadBytesResumable, Storage } from '@angular/fire/storage';
+import { collection, collectionData, CollectionReference, deleteDoc, doc, docData, DocumentReference, Firestore, setDoc, updateDoc, writeBatch } from '@angular/fire/firestore';
+import { getDownloadURL, ref, uploadBytesResumable, Storage, deleteObject } from '@angular/fire/storage';
 
 
 
@@ -77,6 +77,14 @@ export class ItemService {
     const url = await getDownloadURL(storageRef);
     return url;
 
+  }
+
+  deleteImg(img: string) {
+    const storageRef = ref(this.storage, img);
+    const batch = writeBatch(this.db);
+    return deleteObject(storageRef).then(() => {
+      batch.commit();
+    })
   }
 
 }
