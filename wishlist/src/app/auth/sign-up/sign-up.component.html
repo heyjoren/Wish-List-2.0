@@ -49,10 +49,11 @@
         </div>
         <div>
             <span>Het paswoord moet minstens bestaan uit:</span>
-            <li [ngClass]="{
+            <!-- <li [ngClass]="{
                 'passwdInValid': (passwd.touched || passwd.dirty) && (passwd.value?.length < 8 || passwd.errors?.['minlength']),
                 'passwdValid': (passwd.touched || passwd.dirty) && passwd.value?.length >= 8
-              }">8 karakters</li>
+              }">8 karakters</li> -->
+              <li [passwordRequirement]="{control: passwd, requirement: 'minLength'}">8 karakters</li>
             <li [ngClass]="{
                 'passwdInValid': (passwd.touched || passwd.dirty) && passwd.errors?.['passwordStrength'],
                 'passwdValid': (passwd.touched || passwd.dirty) && hasUpperCase

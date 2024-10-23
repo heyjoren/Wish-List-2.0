@@ -185,6 +185,7 @@ button{
     font-style: italic;
 }
 
+/* WARN mag weg */
 /* error paswoord niet voldoen */
 .passwdInValid{
     color: red;
@@ -195,6 +196,7 @@ button{
 .passwdValid{
     color: green;
 }
+/* WARN tot hier */
 
 /*------------*/
 /* hulp submit button */
