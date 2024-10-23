@@ -4,12 +4,12 @@ import { AbstractControl, FormBuilder, FormGroup, NgForm, ReactiveFormsModule, V
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { user } from '../user/user.module';
-import { PasswordRequirementDirective } from '../../password-requirement.directive';
+import { PasswdRequirementsDirective } from '../../passwd-requirements.directive';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, PasswordRequirementDirective],
+  imports: [ReactiveFormsModule, CommonModule, PasswdRequirementsDirective],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.css'
 })
