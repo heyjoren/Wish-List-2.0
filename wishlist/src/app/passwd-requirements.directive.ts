@@ -1,5 +1,6 @@
 import { Directive, HostBinding, Input } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 
 @Directive({
   selector: '[appPasswdRequirements]',
@@ -7,18 +8,19 @@ import { AbstractControl } from '@angular/forms';
 })
 export class PasswdRequirementsDirective {
 
+  private touchedSubject = new BehaviorSubject<boolean>(false);
+  private dirtySubject = new BehaviorSubject<boolean>(false);
+
   constructor() { }
 
   @Input('appPasswdRequirements') config!: {control: AbstractControl, requirement: string}
   @HostBinding('style.color') textColor: string = 'black';
 
   ngOnInit(): void {
-    console.log("this.config.control.touched on init = " + this.config.control.touched);
     this.config.control.valueChanges.subscribe(value => {
       this.checkRequirement(value);  
-      console.log("this.config.control.touched subscipe = " + this.config.control.touched);
+    });
 
-    })
   }
 
   private checkRequirement(value: string): void
@@ -65,6 +67,9 @@ export class PasswdRequirementsDirective {
             default:
               this.textColor='black'
       }
+    }
+    else{
+      this.textColor = 'red';
     }
     
   }
