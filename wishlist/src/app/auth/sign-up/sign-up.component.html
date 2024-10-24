@@ -49,24 +49,42 @@
         </div>
         <div>
             <span>Het paswoord moet minstens bestaan uit:</span>
-            <li [ngClass]="{
+            <!-- <li [ngClass]="{
                 'passwdInValid': (passwd.touched || passwd.dirty) && (passwd.value?.length < 8 || passwd.errors?.['minlength']),
                 'passwdValid': (passwd.touched || passwd.dirty) && passwd.value?.length >= 8
-              }">8 karakters</li>
-            <li [ngClass]="{
+              }">8 karakters</li> -->
+              <li [appPasswdRequirements]="{control: passwd, requirement: 'minlength'}">8 karakters</li>
+
+
+            <!-- <li [ngClass]="{
                 'passwdInValid': (passwd.touched || passwd.dirty) && passwd.errors?.['passwordStrength'],
                 'passwdValid': (passwd.touched || passwd.dirty) && hasUpperCase
-            }">een kleineletter en hoofdletter</li>
-            <li [ngClass]="{
+            }">een kleineletter en hoofdletter</li> -->
+
+            <li [appPasswdRequirements]="{control: passwd, requirement: 'hasUppercaseAndLower'}">een kleineletter en hoofdletter</li>
+
+            <!-- <li [ngClass]="{
                 'passwdInValid': (passwd.touched || passwd.dirty) && passwd.errors?.['passwordStrength'],
                 'passwdValid': (passwd.touched || passwd.dirty) && hasNumber
-            }">een cijfer</li>
-            <li [ngClass]="{
+            }">een cijfer</li> -->
+
+            <li [appPasswdRequirements]="{control: passwd, requirement: 'hasNumber'}">een cijfer</li>
+
+
+
+            <!-- <li [ngClass]="{
                 'passwdInValid': (passwd.touched || passwd.dirty) && passwd.errors?.['passwordStrength'],
                 'passwdValid': (passwd.touched || passwd.dirty) && hasSpecialChar
-            }">een speciaal karakter</li>
-            </div>
-        <span *ngIf="passwd.touched && !passwd.valid" class="help-block">Het paswoord is niet veilig en voldoet niet aan de vereisten.</span>
+            }">een speciaal karakter</li> -->
+
+            <li [appPasswdRequirements]="{control: passwd, requirement: 'hasSpecialChar'}">een speciaal karakter</li>
+
+
+
+        </div>
+        <span *ngIf="passwd.touched && !passwd.valid && passwd.dirty" class="help-block">Het paswoord is niet veilig en voldoet niet aan de vereisten.</span>
+        <span *ngIf="passwd.touched && !passwd.dirty" class="help-block">U moet een paswoord ingeven.</span>
+
     </div>
     <div class="submit">
         <!-- <button class="btn btn-primary" type="submit" [disabled]="!form.valid">submit</button> -->
