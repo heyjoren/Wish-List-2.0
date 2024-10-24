@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, fetchSignInMethodsForEmail, getAuth, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
+import { collection, CollectionReference, doc, Firestore, getDoc, getDocs, setDoc } from '@angular/fire/firestore';
 import { AbstractControl, FormControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { user } from './user/user.module';
@@ -34,32 +34,13 @@ export class AuthService {
   } 
 
   // asynchrone validator
-  async emailExists(): Promise<ValidationErrors | null> {
-    // const email = control.value;
-    
-    // try {
-    //     const signInMethods = await fetchSignInMethodsForEmail(this.auth, email);
-    //     console.log(signInMethods.length > 0 ? { emailExists: true } : null);
-    //     return signInMethods.length > 0 ? { emailExists: true } : null;
-    // } catch (error) {
-    //     console.error('Error bij het checken of e-mail al bestaat:', error);
-    //     return null;
-    // }
-
-    const auth = getAuth();
-    const email = "async@async.com";
-    console.log("Checking email:", email);
-
-    fetchSignInMethodsForEmail(auth, email)
-      .then((methods) => {
-        console.log("Sign-in methods for email:", methods);
-      })
-      .catch((error) => {
-        console.error("Error fetching sign-in methods:", error);
-      });
-
+  async emailExists(inputEmail: string): Promise<ValidationErrors | null> {
+    const emails = await this.emailsAlreadyRegisterd();
+    if (emails.includes(inputEmail)) {
+      return { emailExists: true };
+    }
     return null;
-}
+  }
 
 
   async signUp(user: user): Promise<string>{
@@ -118,5 +99,30 @@ export class AuthService {
     this.token = null;
     localStorage.removeItem('token');
     this.router.navigate(['login'])
+  }
+
+  async emailsAlreadyRegisterd(): Promise<string[]>
+  {
+    console.log("emailsAlreadyRegisterd functie");
+
+    const emails: string[] = [];
+    try {
+      const usersRef = collection(this.db, 'user') as CollectionReference<user>;
+      console.log("usersRef: " + usersRef);
+
+      const allUsers = await getDocs(usersRef);
+      console.log("allUsers: " + allUsers);
+
+      
+      allUsers.forEach((user) => {
+        const userData = user.data();
+        emails.push(userData.email);
+      });
+  
+      return emails;
+    } catch (error) {
+      console.error('Error fetching registered emails:', error);
+      return [];
+    }
   }
 }
