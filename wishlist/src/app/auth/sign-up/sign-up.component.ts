@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, NgForm, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, NgForm, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { user } from '../user/user.module';
@@ -32,13 +32,23 @@ export class SignUpComponent {
       'gender':['man'],
       'email': [null, {
         validators: [Validators.required, Validators.email],
-        asyncValidators: [this.authService.emailExists.bind(this.authService)]
+        asyncValidators: [this.emailAsyncValidator()],
+        updateOn: 'change'
       }],
       'passwd': [null, {
         validators: [Validators.required, Validators.minLength(8), this.authService.passwdValidation]
       }],
     });
   }
+
+  emailAsyncValidator(): AsyncValidatorFn {
+    return (control: AbstractControl) => {
+      return this.authService.emailExists(control.value).then(result => {
+        return result ? { emailExists: true } : null;
+      });
+    };
+  }
+
 
   onSubmit(): void {
     this.user.voornaam = this.form.controls['naam'].value.voornaam;
