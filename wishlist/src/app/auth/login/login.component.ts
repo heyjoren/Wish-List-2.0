@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { user } from '../user/user.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,31 +12,49 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   form!: FormGroup;
   showPassword: boolean = false;
+  user: user = new user();
+  falsLoggin: boolean = false;
 
-  // TEST
-  falsLoggin: boolean = true;
-  // TEST tot hier
-
-  constructor(private fb : FormBuilder, private auth: AuthService) {}
+  constructor(private fb : FormBuilder, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
       'credentials': this.fb.group({
         'email': [null, {
         validators: [Validators.required, Validators.email]
-      }],
-      'passwd': [null, {
-        validators: [Validators.required, Validators.minLength(8), this.auth.passwdValidation]
-      }]
+        }],
+        'passwd': [null, {
+          validators: [Validators.required, Validators.minLength(8), this.authService.passwdValidation]
+        }]
       })
     });
+
+    this.falsLoggin = false;
   }
 
+  /**
+   * normale user:
+   *    email:  joren@joren.com
+   *    passwd: Joren123*
+   */
   onSubmit(): void {
-    console.log(this.form)
+    this.user.email = this.form.value.credentials.email;
+    this.user.passwd = this.form.value.credentials.passwd;
+    
+    this.authService.login(this.user)
+    .then( (response) => {
+      if (!response) {
+        this.falsLoggin = true;
+      }
+      else {
+        this.falsLoggin = false;
+        this.router.navigate(['home']);
+      }
+    })
+
   }
 
   togglePasswordVisibility():void {

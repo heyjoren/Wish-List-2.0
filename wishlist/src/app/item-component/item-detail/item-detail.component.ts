@@ -13,10 +13,11 @@ import { BedragService } from '../../bedrag/bedrag.service';
   styleUrl: './item-detail.component.css',
   providers: [DatePipe]
 })
-export class ItemDetailComponent implements OnInit {
+export class ItemDetailComponent implements OnInit  {
   item: item = new item();
   myDate = new Date();
   showKoopButton: boolean = true;
+  saved: boolean = false;
 
   constructor(private itemService: ItemService, private route: ActivatedRoute, private router: Router, private bedragService: BedragService, private datePipe: DatePipe ) {}
 
@@ -60,11 +61,14 @@ export class ItemDetailComponent implements OnInit {
       }
     });
 
-    this.itemService.deleteItem(this.item.id!).subscribe(
+    this.itemService.deleteItem(this.item!).subscribe(
       (response: any) => {
         this.router.navigate(['items']);
     }
     );
   }
+
+
+
 
 }
