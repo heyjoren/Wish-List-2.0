@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { doc, Firestore, setDoc } from '@angular/fire/firestore';
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { Auth, createUserWithEmailAndPassword, fetchSignInMethodsForEmail, getAuth, signInWithEmailAndPassword } from '@angular/fire/auth';
+import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
+import { AbstractControl, FormControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { user } from './user/user.module';
-import { Token } from '@angular/compiler';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,18 +20,47 @@ export class AuthService {
     }
   }
 
-  passwdValidation(control: AbstractControl): ValidationErrors | null {
+  //synchrone validator
+  passwdValidation(control: AbstractControl): ValidationErrors | null { 
     const value = control.value || '';
     const hasUpperCase = /[A-Z]/.test(value);
     const hasLowerCase = /[a-z]/.test(value);
     const hasNumber = /\d/.test(value);
     const hasSpecialChar = /[\W\_]/.test(value);
-    const test = /[\W]/.test(value);
 
     const valid = hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
 
     return !valid ? {passwordStrength: true} : null;
   } 
+
+  // asynchrone validator
+  async emailExists(control: AbstractControl): Promise<ValidationErrors | null> {
+    // const email = control.value;
+    
+    // try {
+    //     const signInMethods = await fetchSignInMethodsForEmail(this.auth, email);
+    //     console.log(signInMethods.length > 0 ? { emailExists: true } : null);
+    //     return signInMethods.length > 0 ? { emailExists: true } : null;
+    // } catch (error) {
+    //     console.error('Error bij het checken of e-mail al bestaat:', error);
+    //     return null;
+    // }
+
+    const auth = getAuth();
+    const email = "async@async.com";
+    console.log("Checking email:", email);
+
+    fetchSignInMethodsForEmail(auth, email)
+      .then((methods) => {
+        console.log("Sign-in methods for email:", methods);
+      })
+      .catch((error) => {
+        console.error("Error fetching sign-in methods:", error);
+      });
+
+    return null;
+}
+
 
   async signUp(user: user): Promise<string>{
     try {
