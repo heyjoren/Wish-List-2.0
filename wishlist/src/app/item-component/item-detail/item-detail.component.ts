@@ -61,7 +61,7 @@ export class ItemDetailComponent implements OnInit  {
       }
     });
 
-    this.itemService.deleteItem(this.item.id!).subscribe(
+    this.itemService.deleteItem(this.item!).subscribe(
       (response: any) => {
         this.router.navigate(['items']);
     }
