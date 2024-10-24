@@ -54,8 +54,19 @@ export class ItemService {
     return from(setDoc(itemRef, item));
   }
 
-  deleteItem(id: string) {
-    const itemRef = doc(this.db, 'item/' +id) as DocumentReference<item>;
+  // deleteItem(id: string) {
+  //   const itemRef = doc(this.db, 'item/' +id) as DocumentReference<item>;
+  //   return from(deleteDoc(itemRef));
+  //   // WARN delete img
+  // }
+
+  deleteItem(item: item) {
+    const itemRef = doc(this.db, 'item/' + item.id) as DocumentReference<item>;
+    console.log("item: " + item);
+    if (item.img){
+      console.log("if");
+      this.deleteImg(item.img);
+    }
     return from(deleteDoc(itemRef));
   }
 

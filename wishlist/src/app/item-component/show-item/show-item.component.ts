@@ -25,7 +25,13 @@ export class ShowItemComponent {
 
   onDelete(){
 
-    this.itemService.deleteItem(this.item.id!).subscribe(
+    // this.itemService.deleteItem(this.item.id!).subscribe(
+    //   (response: any) => {
+    //       this.router.navigate(['items']);
+    //   }
+    // )
+
+    this.itemService.deleteItem(this.item!).subscribe(
       (response: any) => {
           this.router.navigate(['items']);
       }
