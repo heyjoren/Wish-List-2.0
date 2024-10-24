@@ -9,6 +9,7 @@ import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { LoginComponent } from './auth/login/login.component';
 import { WelkomComponent } from './welkom/welkom.component';
 import { deactivateGaurd, isLoggedInGaurd, loggedInChildGuard, loggedInGaurd } from './auth/route-access.guard';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 export const routes: Routes = [
 
@@ -16,19 +17,20 @@ export const routes: Routes = [
 
     {path: 'home', component: HomeComponent,canActivate: [loggedInGaurd] },
 
-    {path: 'bedragen', component: BedragComponent, children: [
+    {path: 'bedragen', component: BedragComponent, canActivate: [loggedInGaurd], canActivateChild: [loggedInChildGuard], children: [
         {path: 'add', component: NewBedragComponent }
     ]},
 
-    {path: 'items', component: ItemComponentComponent, canActivateChild: [loggedInChildGuard], children: [
+    {path: 'items', component: ItemComponentComponent, canActivate: [loggedInGaurd], canActivateChild: [loggedInChildGuard], children: [
         {path: ':id', component: ItemDetailComponent, data: { showKoopButton: true } },
     ]},
 
-    {path: 'items/:id/change', component: AanpasItemComponent, canActivateChild: [loggedInChildGuard] , canDeactivate: [deactivateGaurd], children: [
+    {path: 'items/:id/change', component: AanpasItemComponent, canActivate: [loggedInGaurd], canActivateChild: [loggedInChildGuard] , canDeactivate: [deactivateGaurd], children: [
         {path: '', component: ItemDetailComponent, data: { showKoopButton: false } },
     ]},
     {path: 'signUp', component: SignUpComponent, canActivate: [isLoggedInGaurd] },
     {path: 'login', component: LoginComponent, canActivate: [isLoggedInGaurd] },
     
+    { path: '**', component: NotFoundComponent }
 
 ];
