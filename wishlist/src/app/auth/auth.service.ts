@@ -103,16 +103,11 @@ export class AuthService {
 
   async emailsAlreadyRegisterd(): Promise<string[]>
   {
-    console.log("emailsAlreadyRegisterd functie");
-
     const emails: string[] = [];
     try {
       const usersRef = collection(this.db, 'user') as CollectionReference<user>;
-      console.log("usersRef: " + usersRef);
 
       const allUsers = await getDocs(usersRef);
-      console.log("allUsers: " + allUsers);
-
       
       allUsers.forEach((user) => {
         const userData = user.data();
