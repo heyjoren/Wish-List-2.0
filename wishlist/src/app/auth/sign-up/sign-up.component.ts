@@ -32,7 +32,7 @@ export class SignUpComponent {
       'gender':['man'],
       'email': [null, {
         validators: [Validators.required, Validators.email],
-        asyncValidators: [this.authService.emailExists.bind(this.authService)]
+        // asyncValidators: [this.authService.emailExists()]
       }],
       'passwd': [null, {
         validators: [Validators.required, Validators.minLength(8), this.authService.passwdValidation]

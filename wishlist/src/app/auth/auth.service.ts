@@ -34,7 +34,7 @@ export class AuthService {
   } 
 
   // asynchrone validator
-  async emailExists(control: AbstractControl): Promise<ValidationErrors | null> {
+  async emailExists(): Promise<ValidationErrors | null> {
     // const email = control.value;
     
     // try {
@@ -80,7 +80,7 @@ export class AuthService {
     
     const userRef = doc(this.db, 'user', userId);
     try {
-      const { email, passwd, ...userWithoutEmailAndPasswd } = user; //om email en passwd niet in de db te laten opslaan.
+      const { passwd, ...userWithoutEmailAndPasswd } = user; //om passwd niet in de db te laten opslaan.
       await setDoc(userRef, {...userWithoutEmailAndPasswd, role: 1}); //de ... is om alle velden van user toe te voegen.
       return 'success';
     } catch (error) {
