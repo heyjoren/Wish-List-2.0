@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { CanActivateChildFn, CanActivateFn, CanDeactivateFn, Router } from '@angular/router';
+import { CanActivateChildFn, CanActivateFn, CanDeactivateFn, CanMatchFn, Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { map, Observable } from 'rxjs';
 import { BackendAdminService } from './admin/backend-admin.service';
@@ -71,4 +71,16 @@ export const adminGaurd: CanActivateFn =  (route, state) => {
       }
     }
   ));
+};
+
+export const loggedInLoadGaurd: CanMatchFn =  (route, state) => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+
+  if(!authService.isLoggedIn())
+  {
+    router.navigate(['login']);
+    return false;
+  }
+  return true;
 };
