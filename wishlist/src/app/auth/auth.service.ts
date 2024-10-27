@@ -120,4 +120,16 @@ export class AuthService {
       return [];
     }
   }
+
+  getUid()
+  {
+    if(this.auth.currentUser)
+    {
+      return this.auth.currentUser.uid;
+    }
+    else
+    {
+      return null;
+    }
+  }
 }

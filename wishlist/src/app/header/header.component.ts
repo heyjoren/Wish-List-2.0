@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { CommonModule } from '@angular/common';
+import { BackendAdminService } from '../auth/admin/backend-admin.service';
 
 @Component({
   selector: 'app-header',
@@ -11,14 +12,26 @@ import { CommonModule } from '@angular/common';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent {
+  isAdmin: boolean = false;
 
-  constructor(private _authService: AuthService) { }
+  constructor(protected authService: AuthService, protected adminService: BackendAdminService) { }
 
   Logout(){
-    this._authService.logOut();
+    this.authService.logOut();
   }
 
-  get authService() {
-    return this._authService;
+  ngOnInit()
+  {
+    this.adminService.getAdmin(this.authService.getUid()).subscribe((admin) => {
+      console.log(this.authService.getUid());
+      console.log(admin);
+
+      if(admin)
+      {
+        this.isAdmin = true;
+      }
+      console.log(this.isAdmin);
+
+    });
   }
 }

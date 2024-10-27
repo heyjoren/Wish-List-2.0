@@ -1,0 +1,32 @@
+/*Stijl van de tabel*/
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+table {
+    width: 75%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/*stijl van de knop*/
+button {
+    width: 125px;
+}
+
+.user{
+    background-color: #00acac;
+    border: none;
+}
+
+.admin{
+background-color: #518242;
+border: none;
+}
+
+/* tijl als je de user bent */
+
+.isUser{
+    color: blue;
+}
