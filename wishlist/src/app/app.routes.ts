@@ -8,8 +8,9 @@ import { AanpasItemComponent } from './item-component/aanpas-item/aanpas-item.co
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { LoginComponent } from './auth/login/login.component';
 import { WelkomComponent } from './welkom/welkom.component';
-import { deactivateGaurd, isLoggedInGaurd, loggedInChildGuard, loggedInGaurd } from './auth/route-access.guard';
+import { adminGaurd, deactivateGaurd, isLoggedInGaurd, loggedInChildGuard, loggedInGaurd } from './auth/route-access.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { AdminUsersComponent } from './auth/admin/admin-users/admin-users.component';
 
 export const routes: Routes = [
 
@@ -30,6 +31,9 @@ export const routes: Routes = [
     ]},
     {path: 'signUp', component: SignUpComponent, canActivate: [isLoggedInGaurd] },
     {path: 'login', component: LoginComponent, canActivate: [isLoggedInGaurd] },
+
+    {path: 'users', component: AdminUsersComponent, canActivate: [adminGaurd] },
+
     
     { path: '**', component: NotFoundComponent }
 

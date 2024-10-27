@@ -95,10 +95,11 @@ export class AuthService {
   }
 
   logOut(): void {
-    this.auth.signOut();
+    this.router.navigate([''])
     this.token = null;
     localStorage.removeItem('token');
-    this.router.navigate(['login'])
+    this.auth.signOut();
+
   }
 
   async emailsAlreadyRegisterd(): Promise<string[]>
@@ -118,6 +119,18 @@ export class AuthService {
     } catch (error) {
       console.error('Error fetching registered emails:', error);
       return [];
+    }
+  }
+
+  getUid()
+  {
+    if(this.auth.currentUser)
+    {
+      return this.auth.currentUser.uid;
+    }
+    else
+    {
+      return null;
     }
   }
 }

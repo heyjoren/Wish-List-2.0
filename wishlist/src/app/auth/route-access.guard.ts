@@ -1,7 +1,9 @@
 import { inject } from '@angular/core';
 import { CanActivateChildFn, CanActivateFn, CanDeactivateFn, Router } from '@angular/router';
 import { AuthService } from './auth.service';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { BackendAdminService } from './admin/backend-admin.service';
+import { admin } from './admin/admin/admin.module';
 
 export const isLoggedInGaurd: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
@@ -49,4 +51,24 @@ export const deactivateGaurd: CanDeactivateFn<CanComponentDeactivate> = (compone
     return component.canDeactivate();
   }
   return true;
+};
+
+export const adminGaurd: CanActivateFn =  (route, state) => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+  const adminService = inject(BackendAdminService);
+
+  return adminService.getAdmin(authService.getUid())
+  .pipe(map(
+    (isadmin: admin|undefined) => {
+      if(isadmin)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
+  ));
 };

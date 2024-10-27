@@ -56,7 +56,7 @@ export class ItemService {
 
   deleteItem(item: item) {
     const itemRef = doc(this.db, 'item/' + item.id) as DocumentReference<item>;
-    console.log("item: " + item);
+    // console.log("item: " + item);
     if (item.img){
       console.log("if");
       this.deleteImg(item.img);

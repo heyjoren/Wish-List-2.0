@@ -4,6 +4,7 @@
         <li class="nav-item" *ngIf="authService.isLoggedIn()"><a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a></li>
         <li class="nav-item" *ngIf="authService.isLoggedIn()"><a class="nav-link" routerLink="/bedragen" routerLinkActive="active">Bedragen</a></li>
         <li class="nav-item" *ngIf="authService.isLoggedIn()"><a class="nav-link" routerLink="/items" routerLinkActive="active">Items</a></li>
+        <li class="nav-item" *ngIf="isAdmin"><a class="nav-link" routerLink="/users" routerLinkActive="active">Change user roles</a></li>
         <div class="ms-auto">
             <li class="nav-item dropdown right-align" routerLinkActive="active" #accountMenu="routerLinkActive">
                 <a class="nav-link dropdown-toggle" [class.active]="accountMenu.isActive" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
