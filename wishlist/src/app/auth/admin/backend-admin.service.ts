@@ -91,19 +91,14 @@ export class BackendAdminService {
 
   checkAdmin(bool: boolean)
   {
-    console.log("checkAdmin");
-    // console.trace();
     this.IsAdmin.next(bool);
-    console.log("bool: " + bool);
     if(bool == true)
     {
-      console.log("if");
       // JSON.stringify(true) is om een object om te zetten naar een string
       localStorage.setItem('isAdmin', JSON.stringify(true) );
     }
     else
     {
-      console.log("else");
       localStorage.removeItem('isAdmin');
       
     }

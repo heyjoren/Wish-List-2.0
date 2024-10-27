@@ -57,10 +57,8 @@ export class LoginComponent implements OnInit {
         this.falsLoggin = false;
         
         this.router.navigate(['home']);
-        console.log("test");
 
         this.adminSubscription = this.adminService.getAdmin(this.authService.getUid()).subscribe((admin) => {
-          console.log("login admin: " + admin);
           if(admin)
           {
             this.adminService.checkAdmin(true);
