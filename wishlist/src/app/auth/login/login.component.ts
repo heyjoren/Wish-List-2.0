@@ -4,6 +4,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../auth.service';
 import { user } from '../user/user.module';
 import { Router } from '@angular/router';
+import { BackendAdminService } from '../admin/backend-admin.service';
+import { admin } from '../admin/admin/admin.module';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +20,9 @@ export class LoginComponent implements OnInit {
   showPassword: boolean = false;
   user: user = new user();
   falsLoggin: boolean = false;
+  adminSubscription!: Subscription;
 
-  constructor(private fb : FormBuilder, private authService: AuthService, private router: Router) {}
+  constructor(private fb : FormBuilder, private authService: AuthService, private router: Router, private adminService: BackendAdminService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -36,7 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * normale user:
+   * admin user:
    *    email:  joren@joren.com
    *    passwd: Joren123*
    */
@@ -51,10 +55,25 @@ export class LoginComponent implements OnInit {
       }
       else {
         this.falsLoggin = false;
+        
         this.router.navigate(['home']);
+        console.log("test");
+
+        this.adminSubscription = this.adminService.getAdmin(this.authService.getUid()).subscribe((admin) => {
+          console.log("login admin: " + admin);
+          if(admin)
+          {
+            this.adminService.checkAdmin(true);
+          }
+          else
+          {
+            this.adminService.checkAdmin(false);
+
+          }
+          this.adminSubscription.unsubscribe();
+        });
       }
     })
-
   }
 
   togglePasswordVisibility():void {

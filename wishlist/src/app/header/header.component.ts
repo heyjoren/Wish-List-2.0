@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { BackendAdminService } from '../auth/admin/backend-admin.service';
@@ -14,24 +14,23 @@ import { BackendAdminService } from '../auth/admin/backend-admin.service';
 export class HeaderComponent {
   isAdmin: boolean = false;
 
-  constructor(protected authService: AuthService, protected adminService: BackendAdminService) { }
+  constructor(protected authService: AuthService, protected adminService: BackendAdminService, private router: Router) { }
 
   Logout(){
     this.authService.logOut();
+    this.adminService.checkAdmin(false);
+    this.router.navigate([''])
+
   }
 
   ngOnInit()
   {
-    this.adminService.getAdmin(this.authService.getUid()).subscribe((admin) => {
-      console.log(this.authService.getUid());
-      console.log(admin);
+    this.isAdmin = this.adminService.getStoredAdminStatus();
 
-      if(admin)
-      {
-        this.isAdmin = true;
-      }
-      console.log(this.isAdmin);
-
-    });
+    this.adminService.IsAdmin.subscribe({
+      next: (value) => {
+        this.isAdmin = value
+      },
+    })
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { collection, collectionData, CollectionReference, deleteDoc, doc, docData, DocumentReference, Firestore, setDoc } from '@angular/fire/firestore';
-import { from, Observable } from 'rxjs';
+import { from, Observable, Subject } from 'rxjs';
 import { user } from '../user/user.module';
 import { admin } from './admin/admin.module';
 
@@ -11,6 +11,8 @@ export class BackendAdminService {
 
   users: user[] = [];
   admins: admin[] = [];
+
+  IsAdmin = new Subject<boolean>();
 
   constructor(private db: Firestore) { }
 
@@ -85,6 +87,39 @@ export class BackendAdminService {
     return docData<admin>(
       doc(this.db, '/admin/' + uid) as DocumentReference<admin>
     )
+  }
+
+  checkAdmin(bool: boolean)
+  {
+    console.log("checkAdmin");
+    // console.trace();
+    this.IsAdmin.next(bool);
+    console.log("bool: " + bool);
+    if(bool == true)
+    {
+      console.log("if");
+      // JSON.stringify(true) is om een object om te zetten naar een string
+      localStorage.setItem('isAdmin', JSON.stringify(true) );
+    }
+    else
+    {
+      console.log("else");
+      localStorage.removeItem('isAdmin');
+      
+    }
+  }
+
+  getStoredAdminStatus(): boolean
+  {
+    const storedAdminStatus = localStorage.getItem('isAdmin');
+    if(storedAdminStatus === 'true')
+    {
+    return true;
+    }
+    else
+    {
+      return false;
+    }
   }
   
 }

@@ -95,10 +95,11 @@ export class AuthService {
   }
 
   logOut(): void {
-    this.auth.signOut();
+    this.router.navigate([''])
     this.token = null;
     localStorage.removeItem('token');
-    this.router.navigate(['login'])
+    this.auth.signOut();
+
   }
 
   async emailsAlreadyRegisterd(): Promise<string[]>

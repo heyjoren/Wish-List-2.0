@@ -11,8 +11,8 @@
         <td [ngClass]="{'isUser': auth.getUid() == user.id}">{{ user.email }}</td>
         <td [ngClass]="{'isUser': auth.getUid() == user.id}">{{ user.role }}</td>
         <td>
-            <button class="user" *ngIf="user.role == 'User'" (click)="makeAdmin(user)">make Admin</button>
-            <button class="admin" *ngIf="user.role == 'Admin'" (click)="makeUser(user)">make User</button>
+            <button class="user" *ngIf="!(auth.getUid() == user.id) && user.role == 'User'" (click)="makeAdmin(user)">make Admin</button>
+            <button class="admin" *ngIf="!(auth.getUid() == user.id) && user.role == 'Admin'" (click)="makeUser(user)">make User</button>
 
         </td>
     </tr>
