@@ -1,0 +1,41 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	// functions
+  	function isAuthenticated() {
+    	return request.auth.uid != null;
+    }
+    
+    function isAdmin() {
+    	// $ voor variabelen.
+      return isAuthenticated() && exists(/databases/$(database)/documents/admin/$(request.auth.uid));
+    }
+    
+    // your rules
+    // match /{document=**} {
+    //   allow read, write: if request.time < timestamp.date(2024, 11, 14);
+    // }
+    
+    match /item/{itemid} {
+    	allow read : if isAuthenticated();
+      allow write: if isAuthenticated();
+    }
+    
+    match /bedrag/{bedragid} {
+    	allow read: if isAuthenticated();
+      allow write: if isAuthenticated();
+    }
+    
+    match /user/{uesrid} {
+    	allow read;
+      allow write;
+    }
+    
+    match /admin/{adminid} {
+    	allow read;
+      allow write: if isAdmin();
+    }
+    
+  }
+}
