@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { HttpClient } from '@angular/common/http';;
 import { ImgNamePipe } from '../../img-name.pipe';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-new-item',
@@ -26,7 +27,8 @@ export class NewItemComponent {
 
 
   constructor(private Dialogservice: DialogService, private dialogref: MatDialogRef<NewItemComponent>, 
-    private itemService: ItemService, private router: Router, private http: HttpClient, private imgNamePipe: ImgNamePipe, private fb : FormBuilder) {}
+    private itemService: ItemService, private router: Router, private http: HttpClient, private imgNamePipe: ImgNamePipe, private fb : FormBuilder,
+    private auth: AuthService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -72,7 +74,8 @@ export class NewItemComponent {
       prijs: prijsString,
       beschrijving: this.form.value.beschrijving,
       fabrikant: this.form.value.fabrikant,
-      img: ""
+      img: "",
+      uid: this.auth.getUid() ?? '',
     }
 
     console.log(nieuwitem)

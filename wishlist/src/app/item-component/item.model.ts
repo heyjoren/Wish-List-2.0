@@ -5,6 +5,7 @@ export class item {
     beschrijving: string;
     img?: string;
     fabrikant: string;
+    uid?: string;
   
     constructor() {
       this.id = '';
@@ -13,5 +14,6 @@ export class item {
       this.beschrijving = '';
       this.img = '';
       this.fabrikant = '';
+      this.uid = '';
     }
   }

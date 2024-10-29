@@ -1,32 +1,40 @@
 import { Injectable } from '@angular/core';
 import { Observable, map, tap, Subject, from   } from 'rxjs';
 import { bedrag } from './bedrag.model';
-import { collection, collectionData, CollectionReference, deleteDoc, doc, DocumentReference, Firestore, setDoc } from '@angular/fire/firestore';
-import { formatCurrency } from '@angular/common';
+import { collection, collectionData, CollectionReference, deleteDoc, doc, DocumentReference, Firestore, setDoc, where, query } from '@angular/fire/firestore';
+import { AuthService } from '../auth/auth.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class BedragService {
+  // alleBedragen: bedrag[] = [];
   bedragen: bedrag[] = [];
   bedragenUpdated = new Subject<bedrag[]>();
   selectedItemId: string | null = null;
+  // uid: string | null = "";
 
-  constructor(private db: Firestore ) { }
+  constructor(private db: Firestore, private auth: AuthService ) { }
 
   getBedragen(): Observable<bedrag[]> {
     return collectionData<bedrag>(
-      collection(this.db, 'bedrag') as CollectionReference<bedrag>,
+      // collection(this.db, 'bedrag') as CollectionReference<bedrag>,
+      // { idField: 'id' }
+      query(
+        collection(this.db, 'bedrag') as CollectionReference<bedrag>,
+        where("uid", "==", this.auth.getUid())
+      ),
       { idField: 'id' }
-    )
+    );
   }
 
   getBedragenPut(): void {
     this.getBedragen().subscribe({  
       next: (response: bedrag[]) => {
-        this.bedragen = response;
-        this.bedragenUpdated.next(this.bedragen);
+          this.bedragen = response;
+          // this.getOwnBedragen();
+          this.bedragenUpdated.next(this.bedragen);
       },
     error: (error) => console.log('error: ', error)
     });
@@ -49,5 +57,16 @@ export class BedragService {
     const bedragRef = doc(this.db, 'bedrag/' + id) as DocumentReference<bedrag>;
     return from(deleteDoc(bedragRef));
   }
+
+  // getOwnBedragen()
+  // {
+  //   this.uid = this.auth.getUid();
+  //   this.alleBedragen.forEach(bedrag => {
+  //     if(this.uid == bedrag.uid)
+  //     {
+  //       this.bedragen.push(bedrag);
+  //     }
+  //   });
+  // }
 
 }

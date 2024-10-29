@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, from, map, tap } from 'rxjs';
 import { item } from './item.model';
-import { collection, collectionData, CollectionReference, deleteDoc, doc, docData, DocumentReference, Firestore, setDoc, updateDoc, writeBatch } from '@angular/fire/firestore';
+import { collection, collectionData, CollectionReference, deleteDoc, doc, docData, DocumentReference, Firestore, query, setDoc, updateDoc, where, writeBatch } from '@angular/fire/firestore';
 import { getDownloadURL, ref, uploadBytesResumable, Storage, deleteObject } from '@angular/fire/storage';
+import { AuthService } from '../auth/auth.service';
 
 
 
@@ -18,13 +19,19 @@ export class ItemService {
 
 
 
-  constructor(private db: Firestore, private storage : Storage) { }
+  constructor(private db: Firestore, private storage : Storage, private auth: AuthService) { }
 
   getItems(): Observable<item[]> {
     return collectionData<item>(
-      collection(this.db, 'item') as CollectionReference<item>,
-      { idField: 'id'}
-    )
+    //   collection(this.db, 'item') as CollectionReference<item>,
+    //   { idField: 'id'}
+    // )
+    query(
+        collection(this.db, 'item') as CollectionReference<item>,
+        where("uid", "==", this.auth.getUid())
+      ),
+      { idField: 'id' }
+    );
   }
 
   getItemsnPut(): void {

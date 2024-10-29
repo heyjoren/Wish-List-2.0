@@ -19,6 +19,7 @@ export class TotaalBedragComponent {
 
 
   ngOnInit(): void {
+    this.bedragService.getBedragenPut();
     this.subscription = this.bedragService.bedragenUpdated.subscribe(() => {
       this.berekenTotaalBedrag();
     });

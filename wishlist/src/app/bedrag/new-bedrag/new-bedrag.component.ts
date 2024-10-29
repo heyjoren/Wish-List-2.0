@@ -8,6 +8,7 @@ import { BedragService } from '../bedrag.service';
 import { Router } from '@angular/router';
 import { bedrag } from '../bedrag.model';
 import { DatePipe } from '@angular/common';
+import { AuthService } from '../../auth/auth.service';
 
 
 @Component({
@@ -20,7 +21,8 @@ import { DatePipe } from '@angular/common';
 })
 export class NewBedragComponent {
 
-  constructor(private Dialogservice: DialogService, private dialogref: MatDialogRef<NewBedragComponent>, private bedragService: BedragService, private router: Router, private datePipe: DatePipe) {}
+  constructor(private Dialogservice: DialogService, private dialogref: MatDialogRef<NewBedragComponent>, private bedragService: BedragService,
+     private router: Router, private datePipe: DatePipe, private auth: AuthService) {}
 
   datum: string = '';
   bedrag: number = 0;
@@ -57,7 +59,8 @@ export class NewBedragComponent {
     const nieuwbedrag = {
       bedrag: bedragString,
       teken: this.teken,
-      datum: formattedDatum
+      datum: formattedDatum,
+      uid: this.auth.getUid() ?? '',
     }
     
     if(nieuwbedrag.bedrag !== "0" && nieuwbedrag.teken !== "" && nieuwbedrag.datum !== "")
@@ -72,5 +75,6 @@ export class NewBedragComponent {
           }
           });
       }
-  }
+    }
+  // }
 }
