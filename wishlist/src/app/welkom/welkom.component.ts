@@ -4,6 +4,7 @@ import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { collection, collectionData, CollectionReference } from '@angular/fire/firestore';
 import { getDownloadURL, ref, Storage } from '@angular/fire/storage';
+import { BackendAdminService } from '../auth/admin/backend-admin.service';
 
 @Component({
   selector: 'app-welkom',
@@ -16,11 +17,16 @@ export class WelkomComponent {
   isLoggedIn: boolean= false
   Logo: string = "";
 
-  constructor(private authService: AuthService, private router: Router, private storage : Storage) { }
+  constructor(private authService: AuthService, private router: Router, private storage : Storage, private adminService: BackendAdminService) { }
 
   ngOnInit(): void {
-  this.isLoggedIn = this.authService.isLoggedIn();
-  this.getLogo();
+    console.log("welkom.ts");
+    console.log("ngOnInit");
+    console.log("this.isLoggedIn: " + this.isLoggedIn);
+    // this.isLoggedIn = this.authService.isLoggedIn();
+    this.isLoggedIn = this.authService.getUid();
+    console.log("this.isLoggedIn: " + this.isLoggedIn);
+    this.getLogo();
   }
 
     // getBedragen(): Observable<bedrag[]> {
@@ -59,5 +65,8 @@ export class WelkomComponent {
 
   logout(){
     this.authService.logOut();
+    this.adminService.checkAdmin(false);
+    this.isLoggedIn = false;
+    this.router.navigate([''])
   }
 }

@@ -50,7 +50,6 @@ export class LoginComponent implements OnInit {
     
     this.authService.login(this.user)
     .then( (response) => {
-      console.log(response);
       if (!response) {
         this.falsLoggin = true;
       }
