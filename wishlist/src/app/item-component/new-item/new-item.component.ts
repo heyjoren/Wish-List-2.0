@@ -33,7 +33,7 @@ export class NewItemComponent {
   ngOnInit(): void {
     this.form = this.fb.group({
       naam: ['', Validators.required],
-      prijs: ['', Validators.required],
+      prijs: [0, Validators.required],
       beschrijving: [''],
       fabrikant: ['', Validators.required],
       });
@@ -44,8 +44,6 @@ export class NewItemComponent {
   {
     if(!this.toevoegenSwitch)
     {    
-      // const prijsString: string = this.prijs.toFixed(2).toString();
-      console.log(this.form.value.prijs.toFixed(2))
       const prijsString: string = this.form.value.prijs.toFixed(2).toString();
 
       if(this.form.value.naam !== "" || this.form.value.fabrikant !== "" || prijsString !== '0.00')
@@ -67,40 +65,35 @@ export class NewItemComponent {
 
   async toevoegen(){
     this.toevoegenSwitch = true
-    const prijsString: string = this.form.value.prijs.toFixed(2).toString();
 
     const nieuwitem = {
       naam: this.form.value.naam,
-      prijs: prijsString,
+      prijs: this.form.value.prijs,
       beschrijving: this.form.value.beschrijving,
       fabrikant: this.form.value.fabrikant,
       img: "",
       uid: this.auth.getUid() ?? '',
+      toegevoegOp: new Date(),
     }
 
-    console.log(nieuwitem)
-
-    // if (nieuwitem.naam !== "" && nieuwitem.prijs !== "0" && nieuwitem.fabrikant !== "")
-      // {
-        const newId = this.itemService.createItemId();
-        if(this.file)
-        {
-          const path = 'item/' + newId + '/' + this.file.name;
-          nieuwitem.img = await this.itemService.uploadImg(path, this.file);
-        }
-        else{
-          nieuwitem.img = "";
-        }
-        this.itemService.addItems(nieuwitem, newId).subscribe({
-          next: () => {
-            this.closeDialog();
-            this.router.navigate(['items']);
-          },
-          error: (error) => {
-            console.error('Error: ', error);
-          }
-        });
-      // }
+    const newId = this.itemService.createItemId();
+    if(this.file)
+    {
+      const path = 'item/' + newId + '/' + this.file.name;
+      nieuwitem.img = await this.itemService.uploadImg(path, this.file);
+    }
+    else{
+      nieuwitem.img = "";
+    }
+    this.itemService.addItems(nieuwitem, newId).subscribe({
+      next: () => {
+        this.closeDialog();
+        this.router.navigate(['items']);
+      },
+      error: (error) => {
+        console.error('Error: ', error);
+      }
+    });
   }
 
   selectImg(event: Event): void {

@@ -124,17 +124,18 @@ export class AanpasItemComponent implements CanComponentDeactivate {
       this.item.img = await this.itemService.uploadImg(path, this.file);
     }
 
-    let prijsString: string = "";
-    prijsString = this.form.value.prijs.toString();
+    // let prijsString: string = "";
+    // prijsString = this.form.value.prijs.toString();
 
 
-    if(prijsString.length < 4)
-    {
-      prijsString = this.form.value.prijs.toFixed(2).toString();
-    }
+    // if(prijsString.length < 4)
+    // {
+    //   prijsString = this.form.value.prijs.toFixed(2).toString();
+    // }
 
     this.item.naam = this.form.value.naam;
-    this.item.prijs = prijsString;
+    // this.item.prijs = prijsString;
+    this.item.prijs = this.form.value.prijs.toFixed(2);
     this.item.fabrikant = this.form.value.fabrikant;
     this.item.beschrijving = this.form.value.beschrijving;
 
