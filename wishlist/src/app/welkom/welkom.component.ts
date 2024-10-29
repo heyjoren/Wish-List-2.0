@@ -20,26 +20,9 @@ export class WelkomComponent {
   constructor(private authService: AuthService, private router: Router, private storage : Storage, private adminService: BackendAdminService) { }
 
   ngOnInit(): void {
-    console.log("welkom.ts");
-    console.log("ngOnInit");
-    console.log("this.isLoggedIn: " + this.isLoggedIn);
-    // this.isLoggedIn = this.authService.isLoggedIn();
     this.isLoggedIn = this.authService.getUid();
-    console.log("this.isLoggedIn: " + this.isLoggedIn);
     this.getLogo();
   }
-
-    // getBedragen(): Observable<bedrag[]> {
-  //   return collectionData<bedrag>(
-  //     // collection(this.db, 'bedrag') as CollectionReference<bedrag>,
-  //     // { idField: 'id' }
-  //     query(
-  //       collection(this.db, 'bedrag') as CollectionReference<bedrag>,
-  //       where("uid", "==", this.auth.getUid())
-  //     ),
-  //     { idField: 'id' }
-  //   );
-  // }
 
   getLogo() {
     const logoRef = ref(this.storage, 'logo/logo.webp');  // Vervang dit door het juiste pad naar je logo in Firebase Storage
