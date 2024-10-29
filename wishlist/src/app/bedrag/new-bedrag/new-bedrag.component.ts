@@ -53,18 +53,27 @@ export class NewBedragComponent {
   }
 
   toevoegen(): void{
-    const bedragString: string = this.bedrag.toFixed(2).toString();
-    const formattedDatum: string = this.datePipe.transform(this.datum, 'dd-MM-yyyy') || '';
+    console.log("new-bedrag.component.ts");
 
     const nieuwbedrag = {
-      bedrag: bedragString,
+      bedrag: this.bedrag,
       teken: this.teken,
-      datum: formattedDatum,
+      datum: new Date(this.datum),
       uid: this.auth.getUid() ?? '',
     }
+
+    console.log("nieuwbedrag: " + nieuwbedrag);
+    console.log("nieuwbedrag.bedrag: " + nieuwbedrag.bedrag);
+    console.log("nieuwbedrag.datum: " + nieuwbedrag.datum);
+    console.log("nieuwbedrag.teken: " + nieuwbedrag.teken);
+    console.log("nieuwbedrag.uid: " + nieuwbedrag.uid);
     
-    if(nieuwbedrag.bedrag !== "0" && nieuwbedrag.teken !== "" && nieuwbedrag.datum !== "")
+    // if(nieuwbedrag.bedrag !== 0 && nieuwbedrag.teken !== "" && !isNaN(nieuwbedrag.datum.getTime())) //datum moet geldig zijn.
+    if(nieuwbedrag.bedrag !== 0 && nieuwbedrag.teken !== "") //datum moet geldig zijn.
       {
+        console.log("if")
+        return
+
         this.bedragService.addBedrag(nieuwbedrag).subscribe({
           next: () => {
             this.Dialogservice.closeDialog(this.dialogref);

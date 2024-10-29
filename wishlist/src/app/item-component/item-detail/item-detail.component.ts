@@ -47,9 +47,9 @@ export class ItemDetailComponent implements OnInit  {
     const formattedDatum: string = this.datePipe.transform(this.myDate, 'dd-MM-yyyy') || '';
 
     const nieuwbedrag = {
-      bedrag: this.item.prijs,
+      bedrag: Number(this.item.prijs),
       teken: '-',
-      datum: formattedDatum
+      datum: new Date (formattedDatum)
     }
       
     this.bedragService.addBedrag(nieuwbedrag).subscribe({
