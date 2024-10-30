@@ -23,8 +23,7 @@ export class AanpasItemComponent implements CanComponentDeactivate {
   item: item = new item();
   idFromRoute: string | null = null;
   saved: boolean = false;
-  filled: boolean = false;
-  toevoegenSwitch: boolean= false;
+  aanpassenSwitch: boolean= false;
   file: File | null = null;
   form!: FormGroup;
   isSubmitting: boolean = false;
@@ -73,21 +72,16 @@ export class AanpasItemComponent implements CanComponentDeactivate {
   }
 
   closeSccreen(){
-    if(!this.toevoegenSwitch)
-      {    
-        const prijsString: string = this.form.value.prijs.toFixed(2).toString();
-  
-        if(this.form.value.naam !== "" || this.form.value.fabrikant !== "" || prijsString !== '0.00')
+    if(!this.aanpassenSwitch)
+      {      
+        if(this.form.value.naam !== this.item.naam || this.form.value.fabrikant !== this.item.fabrikant || this.form.value.prijs !== this.item.prijs.toString())
         {
-          this.filled = true;
+          console.log("if")
+          this.saved = false;
+
         }
-  
-        if(this.filled)
-        {
-          const confirmClose = confirm('Je hebt nog niet opgeslagen. Ben je zeker dat je niet wilt opslaan?');
-          if (!confirmClose) {
-            return;
-          }
+        else{
+          this.saved = true;
         }
       }
     this.router.navigate(['items']);
@@ -97,6 +91,8 @@ export class AanpasItemComponent implements CanComponentDeactivate {
     if (this.isSubmitting) return;
     this.isSubmitting = true;
     this.saved = true;
+
+    this.aanpassenSwitch = true
 
     if(this.file)
     {
