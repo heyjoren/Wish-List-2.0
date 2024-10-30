@@ -32,11 +32,11 @@ export class NewItemComponent {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      naam: ['', Validators.required],
-      prijs: [0, Validators.required],
-      beschrijving: [''],
-      fabrikant: ['', Validators.required],
-      });
+      'naam': ['', Validators.required],
+      'prijs': [0, [Validators.required, Validators.min(0.01)]],
+      'beschrijving': [''],
+      'fabrikant': ['', Validators.required],
+    });
   }
 
 
@@ -64,36 +64,40 @@ export class NewItemComponent {
   }
 
   async toevoegen(){
+
+    if(this.form.valid)
+    {
     this.toevoegenSwitch = true
 
-    const nieuwitem = {
-      naam: this.form.value.naam,
-      prijs: this.form.value.prijs.toFixed(2),
-      beschrijving: this.form.value.beschrijving,
-      fabrikant: this.form.value.fabrikant,
-      img: "",
-      uid: this.auth.getUid() ?? '',
-      toegevoegOp: new Date(),
-    }
-
-    const newId = this.itemService.createItemId();
-    if(this.file)
-    {
-      const path = 'item/' + newId + '/' + this.file.name;
-      nieuwitem.img = await this.itemService.uploadImg(path, this.file);
-    }
-    else{
-      nieuwitem.img = "";
-    }
-    this.itemService.addItems(nieuwitem, newId).subscribe({
-      next: () => {
-        this.closeDialog();
-        this.router.navigate(['items']);
-      },
-      error: (error) => {
-        console.error('Error: ', error);
+      const nieuwitem = {
+        naam: this.form.value.naam,
+        prijs: this.form.value.prijs.toFixed(2),
+        beschrijving: this.form.value.beschrijving,
+        fabrikant: this.form.value.fabrikant,
+        img: "",
+        uid: this.auth.getUid() ?? '',
+        toegevoegOp: new Date(),
       }
-    });
+
+      const newId = this.itemService.createItemId();
+      if(this.file)
+      {
+        const path = 'item/' + newId + '/' + this.file.name;
+        nieuwitem.img = await this.itemService.uploadImg(path, this.file);
+      }
+      else{
+        nieuwitem.img = "";
+      }
+      this.itemService.addItems(nieuwitem, newId).subscribe({
+        next: () => {
+          this.closeDialog();
+          this.router.navigate(['items']);
+        },
+        error: (error) => {
+          console.error('Error: ', error);
+        }
+      });
+    }
   }
 
   selectImg(event: Event): void {
