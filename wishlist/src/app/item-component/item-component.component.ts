@@ -9,11 +9,12 @@ import { ShowItemComponent } from './show-item/show-item.component';
 import { ItemService } from './item.service';
 import { CommonModule } from '@angular/common';
 import { NewItemComponent } from './new-item/new-item.component';
+import { SortItemsByDatePipe } from '../sort-items-by-date.pipe';
 
 @Component({
   selector: 'app-item-component',
   standalone: true,
-  imports: [ ShowItemComponent,TotaalBedragComponent, MatIconModule, MatTooltipModule, CommonModule, RouterOutlet],
+  imports: [ ShowItemComponent,TotaalBedragComponent, MatIconModule, MatTooltipModule, CommonModule, RouterOutlet, SortItemsByDatePipe],
   templateUrl: './item-component.component.html',
   styleUrl: './item-component.component.css'
 })
