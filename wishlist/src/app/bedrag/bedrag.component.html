@@ -11,7 +11,7 @@
     </div>
 
     <div>
-        <div *ngFor="let bedrag of bedragService.bedragen.reverse()">
+        <div *ngFor="let bedrag of bedragService.bedragen | sortBedragenByDatePipe">
             <app-show-bedrag [bedrag]= "bedrag"></app-show-bedrag>
         </div>
     </div>
