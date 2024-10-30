@@ -1,9 +1,12 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { item } from './item-component/item.model';
 
 @Pipe({
   name: 'sortItemsByDate',
   standalone: true
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class SortItemsByDatePipe implements PipeTransform {
 
