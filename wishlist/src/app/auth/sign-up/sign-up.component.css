@@ -185,19 +185,6 @@ button{
     font-style: italic;
 }
 
-/* WARN mag weg */
-/* error paswoord niet voldoen */
-.passwdInValid{
-    color: red;
-}
-
-/*------------*/
-/* error paswoord voldoen */
-.passwdValid{
-    color: green;
-}
-/* WARN tot hier */
-
 /*------------*/
 /* hulp submit button */
 .tooltip {
@@ -206,8 +193,7 @@ button{
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
-    z-index: 1000; /* Zorg ervoor dat de tooltip boven andere elementen ligt */
-    color: red; /* De tekstkleur */
-    margin-top: 5px; /* Ruimte tussen de knop en de tooltip */
-    /* Voeg eventueel meer stijlen toe voor betere zichtbaarheid */
+    z-index: 1000;
+    color: red;
+    margin-top: 5px;
 }

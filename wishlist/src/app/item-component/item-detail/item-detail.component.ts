@@ -21,7 +21,7 @@ export class ItemDetailComponent implements OnInit  {
   saved: boolean = false;
 
   constructor(private itemService: ItemService, private route: ActivatedRoute, private router: Router, private bedragService: BedragService,
-     private datePipe: DatePipe,  private auth: AuthService ) {}
+    private auth: AuthService ) {}
 
   ngOnInit(){
     this.route.params.subscribe((params: Params) => {

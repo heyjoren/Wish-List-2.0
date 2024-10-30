@@ -19,8 +19,6 @@ export class BedragService {
 
   getBedragen(): Observable<bedrag[]> {
     return collectionData<bedrag>(
-      // collection(this.db, 'bedrag') as CollectionReference<bedrag>,
-      // { idField: 'id' }
       query(
         collection(this.db, 'bedrag') as CollectionReference<bedrag>,
         where("uid", "==", this.auth.getUid())
@@ -33,7 +31,6 @@ export class BedragService {
     this.getBedragen().subscribe({  
       next: (response: bedrag[]) => {
           this.bedragen = response;
-          // this.getOwnBedragen();
           this.bedragenUpdated.next(this.bedragen);
       },
     error: (error) => console.log('error: ', error)
@@ -57,16 +54,5 @@ export class BedragService {
     const bedragRef = doc(this.db, 'bedrag/' + id) as DocumentReference<bedrag>;
     return from(deleteDoc(bedragRef));
   }
-
-  // getOwnBedragen()
-  // {
-  //   this.uid = this.auth.getUid();
-  //   this.alleBedragen.forEach(bedrag => {
-  //     if(this.uid == bedrag.uid)
-  //     {
-  //       this.bedragen.push(bedrag);
-  //     }
-  //   });
-  // }
 
 }

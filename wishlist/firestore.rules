@@ -12,11 +12,7 @@ service cloud.firestore {
       return isAuthenticated() && exists(/databases/$(database)/documents/admin/$(request.auth.uid));
     }
     
-    // your rules
-    // match /{document=**} {
-    //   allow read, write: if request.time < timestamp.date(2024, 11, 14);
-    // }
-    
+    // your rules    
     match /item/{itemid} {
     	allow read : if isAuthenticated();
       allow write: if isAuthenticated();

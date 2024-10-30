@@ -12,13 +12,11 @@ import { Observable } from 'rxjs';
 export class AuthService {
 
   token: string | null = null;
-  // uid: string | null = null;
 
   constructor( private router: Router, private auth: Auth, private db: Firestore) { 
     if(localStorage.getItem('token'))
     {
       this.token = localStorage.getItem('token');
-      // this.uid = localStorage.getItem('uid');
 
       this.auth.onAuthStateChanged(
         () => this.getUid()
@@ -85,11 +83,6 @@ export class AuthService {
         (token: string) => {
           this.token = token;
           localStorage.setItem('token', token);
-          // const uid = this.getUid()
-          // if(uid)
-          // {
-          //   localStorage.setItem('uid',uid);
-          // }
           return true
         }
       );
@@ -133,22 +126,6 @@ export class AuthService {
       return [];
     }
   }
-
-  // getUid()
-  // {
-  //   if(this.auth.currentUser)
-  //   {
-  //     return this.auth.currentUser.uid;
-  //   }
-  //   else if (this.uid) 
-  //   {
-  //     return this.uid;
-  //   }
-  //   else
-  //   {
-  //     return null;
-  //   }
-  // }
 
   getUid()
   {

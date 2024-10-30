@@ -1,10 +1,8 @@
 export class bedrag {
     id?: string;
-    // bedrag: string;
     bedrag: number;
     teken: string;
     datum: Date;
-    // datum: string;
     uid?: string;
   
     constructor() {

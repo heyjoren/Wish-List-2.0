@@ -13,7 +13,6 @@ import { AuthService } from '../../auth.service';
   styleUrl: './admin-users.component.css'
 })
 export class AdminUsersComponent {
-  // private admins: string[] = [];
 
   constructor(protected adminService: BackendAdminService,  protected auth: AuthService) { }
 

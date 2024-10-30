@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 import { DialogService } from '../dialog.service';
 import { NewBedragComponent } from './new-bedrag/new-bedrag.component';
 import { Subscription } from 'rxjs';
-import { SortItemsByDatePipe } from '../sort-items-by-date.pipe';
 import { SortBedragenByDatePipePipe } from '../sort-bedragen-by-date-pipe.pipe';
 
 

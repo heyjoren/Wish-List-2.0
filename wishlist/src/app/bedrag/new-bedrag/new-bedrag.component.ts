@@ -24,11 +24,7 @@ export class NewBedragComponent {
   constructor(private Dialogservice: DialogService, private dialogref: MatDialogRef<NewBedragComponent>, private bedragService: BedragService,
      private router: Router, private datePipe: DatePipe, private auth: AuthService, private fb : FormBuilder) {}
 
-  // datum: string = '';
-  // bedrag: number = 0;
-  // teken: string = '+';
   bedragen: bedrag[] = [];
-  // filled: boolean = false;
   form!: FormGroup;
   isButtonClicked: boolean = false;
 
@@ -78,5 +74,4 @@ export class NewBedragComponent {
         });
       }
     }
-  // }
 }
