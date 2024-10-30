@@ -1,9 +1,12 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { bedrag } from './bedrag/bedrag.model';
 
 @Pipe({
   name: 'sortBedragenByDatePipe',
   standalone: true
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class SortBedragenByDatePipePipe implements PipeTransform {
 

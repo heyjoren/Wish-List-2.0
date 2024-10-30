@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable, map, tap, Subject, from   } from 'rxjs';
 import { bedrag } from './bedrag.model';
-import { collection, collectionData, CollectionReference, deleteDoc, doc, DocumentReference, Firestore, setDoc, where, query } from '@angular/fire/firestore';
+import { collection, collectionData, CollectionReference, deleteDoc, doc, DocumentReference, Firestore, setDoc, where, query, Timestamp } from '@angular/fire/firestore';
 import { AuthService } from '../auth/auth.service';
+import { SortBedragenByDatePipePipe } from '../sort-bedragen-by-date-pipe.pipe';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class BedragService {
-  // alleBedragen: bedrag[] = [];
   bedragen: bedrag[] = [];
   bedragenUpdated = new Subject<bedrag[]>();
   selectedItemId: string | null = null;
-  // uid: string | null = "";
 
-  constructor(private db: Firestore, private auth: AuthService ) { }
+  constructor(private db: Firestore, private auth: AuthService, private sortBedragenByDatePipe: SortBedragenByDatePipePipe ) { }
 
   getBedragen(): Observable<bedrag[]> {
     return collectionData<bedrag>(
@@ -28,7 +27,15 @@ export class BedragService {
   }
 
   getBedragenPut(): void {
-    this.getBedragen().subscribe({  
+    this.getBedragen().pipe(
+      map(bedragen => 
+        bedragen.map(bedrag => {
+          bedrag.datum = this.getDate(bedrag.datum);
+          return bedrag;
+        })
+      ),
+      map(bedragen => this.sortBedragenByDatePipe.transform(bedragen))
+    ).subscribe({  
       next: (response: bedrag[]) => {
           this.bedragen = response;
           this.bedragenUpdated.next(this.bedragen);
@@ -53,6 +60,13 @@ export class BedragService {
   deleteBedrag(id: string) {
     const bedragRef = doc(this.db, 'bedrag/' + id) as DocumentReference<bedrag>;
     return from(deleteDoc(bedragRef));
+  }
+
+  private getDate(dateField: any): Date {
+    if (dateField && dateField.toDate) {
+      return dateField.toDate();
+    }
+    return new Date(dateField);
   }
 
 }

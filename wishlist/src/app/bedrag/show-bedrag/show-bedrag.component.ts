@@ -17,9 +17,7 @@ export class ShowBedragComponent {
   @Input() bedrag: bedrag = new bedrag();
   datum: Date =new Date();
   
-  constructor( private bedragService: BedragService, private router: Router) {  
-    this.datum = new Date(this.bedrag.datum)
-  }
+  constructor( private bedragService: BedragService, private router: Router) {  }
 
   onDelete(){
     this.bedragService.deleteBedrag(this.bedrag.id!).subscribe(
