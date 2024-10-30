@@ -88,3 +88,8 @@ input[type="file"]::-webkit-file-upload-button:hover{
     background-color: black;
     color: lightskyblue;
 }
+
+/* de verplicht veld */
+.verplichtVeld{
+    color: red;
+}

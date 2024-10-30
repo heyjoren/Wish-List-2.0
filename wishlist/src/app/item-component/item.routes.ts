@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { ItemComponentComponent } from '../item-component/item-component.component';
 import { ItemDetailComponent } from '../item-component/item-detail/item-detail.component';
-import { adminGaurd, deactivateGaurd, isLoggedInGaurd, loggedInChildGuard, loggedInGaurd, loggedInLoadGaurd } from '../auth/route-access.guard';
+import { deactivateGaurd, loggedInChildGuard, loggedInGaurd } from '../auth/route-access.guard';
 import { AanpasItemComponent } from './aanpas-item/aanpas-item.component';
 
 

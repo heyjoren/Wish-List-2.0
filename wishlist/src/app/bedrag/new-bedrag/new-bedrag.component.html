@@ -2,28 +2,34 @@
     <h1>Bedrag toevoegen</h1>
 
     <div class="form-container">
-        <div  class="input_div">
-            <label>Datum:</label>
-            <input type="date" id="datum" [(ngModel)]="datum" >
-        </div>
+        <form [formGroup]="form" (ngSubmit)="toevoegen()">
+            <div class="input_div">
+                <label>Datum:</label>
+                <input type="date" id="datum" formControlName="datum">
+            </div>
 
-        <div class="input_div">
-            <label>Bedrag €:</label>
-            <input type="number" id="bedrag" [(ngModel)]="bedrag" step="0.01">
-        </div>
+            <div class="input_div">
+                <label>Bedrag €:</label>
+                <input type="number" id="bedrag" formControlName="bedrag" step="0.01">
+            </div>
 
-        <div  class="input_div">
-            <label>Bewerking:</label>
-            <select id="teken" [(ngModel)]="teken">
-                <option value="+" [selected]="teken === '+'">toevoegen</option>
-                <option value="-">afhalen</option>
-            </select>
-        </div>
+            <div class="input_div">
+                <label>Bewerking:</label>
+                <select id="teken" formControlName="teken">
+                    <option value="+">toevoegen</option>
+                    <option value="-">afhalen</option>
+                </select>
+            </div>
 
-        <div>
-            <button mat-raised-button class="add" aria-label="Button that displays a tooltip when focused or hovered over"
-            matTooltip="Voeg een bedrag toe" (click)="toevoegen()">toevoegen</button>
-        </div>
+            <div>
+                <button mat-raised-button class="add" aria-label="Button that displays a tooltip when focused or hovered over"
+                        matTooltip="Voeg een bedrag toe" type="submit">toevoegen</button>
+            </div>
+            <span *ngIf="!form.valid && isButtonClicked">Niet alles is correct ingevuld.
+                <br>
+                controleer of je wel een getal hebt ingevuld (het moet meer als 0 zijn)
+            </span>
+        </form>
     </div>
 
     <button mat-raised-button class="close" aria-label="Button that displays a tooltip when focused or hovered over"

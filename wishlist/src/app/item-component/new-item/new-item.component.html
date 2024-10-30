@@ -6,23 +6,25 @@
             <p class="verplicht">* is verplicht</p>
             <div  class="input_div form-group">
                 <label>Naam*:</label>
-                <input type="string" id="naam" formControlName="naam" class="form-control">
+                <input type="text" id="naam" formControlName="naam" class="form-control">
+                <span class="verplichtVeld" *ngIf="form.get('naam')?.invalid">Je moet dit veld invullen</span>
             </div>
 
             <div class="input_div form-group">
                 <label>Prijs* €:</label>
                 <input type="number" id="prijs" formControlName="prijs" step="0.01" class="form-control">
+                <span class="verplichtVeld" *ngIf="form.get('prijs')?.invalid">Je moet dit veld invullen</span>
             </div>
 
             <div  class="input_div form-group">
                 <label>Afbeelding:</label>
-                <!-- <input type="file" id="img" [(ngModel)]="img" accept="image/*"> -->
                 <input type="file" id="img" (change)="selectImg($event)">
             </div>
             
             <div  class="input_div form-group">
                 <label>Fabrikant*:</label>
-                <input type="string" id="fabrikant" formControlName="fabrikant" class="form-control">
+                <input type="text" id="fabrikant" formControlName="fabrikant" class="form-control">
+                <span class="verplichtVeld" *ngIf="form.get('fabrikant')?.invalid">Je moet dit veld invullen</span>
             </div>
 
             <div  class="input_div form-group">

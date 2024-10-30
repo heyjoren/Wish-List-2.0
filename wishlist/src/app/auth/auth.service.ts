@@ -17,7 +17,12 @@ export class AuthService {
     if(localStorage.getItem('token'))
     {
       this.token = localStorage.getItem('token');
+
+      this.auth.onAuthStateChanged(
+        () => this.getUid()
+      );
     }
+    
   }
 
   //synchrone validator
@@ -127,6 +132,11 @@ export class AuthService {
     if(this.auth.currentUser)
     {
       return this.auth.currentUser.uid;
+    }
+    else if (this.token) 
+    {
+        const tokenPayload = JSON.parse(atob(this.token.split('.')[1]));
+        return tokenPayload.user_id;
     }
     else
     {

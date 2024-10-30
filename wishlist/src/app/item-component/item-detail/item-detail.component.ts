@@ -4,6 +4,7 @@ import { ItemService } from '../item.service';
 import { ActivatedRoute, Params, Router, Data } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import { BedragService } from '../../bedrag/bedrag.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-item-detail',
@@ -19,7 +20,8 @@ export class ItemDetailComponent implements OnInit  {
   showKoopButton: boolean = true;
   saved: boolean = false;
 
-  constructor(private itemService: ItemService, private route: ActivatedRoute, private router: Router, private bedragService: BedragService, private datePipe: DatePipe ) {}
+  constructor(private itemService: ItemService, private route: ActivatedRoute, private router: Router, private bedragService: BedragService,
+    private auth: AuthService ) {}
 
   ngOnInit(){
     this.route.params.subscribe((params: Params) => {
@@ -36,6 +38,7 @@ export class ItemDetailComponent implements OnInit  {
      next: (response: item | undefined) => {
       if (response) {
         this.item = response;
+        this.item.id = id;
       }
       },
       error: (error) => console.log('error: ', error)
@@ -44,12 +47,11 @@ export class ItemDetailComponent implements OnInit  {
 
   koop(){  
     
-    const formattedDatum: string = this.datePipe.transform(this.myDate, 'dd-MM-yyyy') || '';
-
     const nieuwbedrag = {
-      bedrag: this.item.prijs,
+      bedrag: Number(this.item.prijs),
       teken: '-',
-      datum: formattedDatum
+      datum: new Date (this.myDate),
+      uid: this.auth.getUid() ?? '',
     }
       
     this.bedragService.addBedrag(nieuwbedrag).subscribe({
@@ -61,6 +63,8 @@ export class ItemDetailComponent implements OnInit  {
       }
     });
 
+      this.item.toegevoegOp = this.getDate(this.item.toegevoegOp);
+
     this.itemService.deleteItem(this.item!).subscribe(
       (response: any) => {
         this.router.navigate(['items']);
@@ -68,6 +72,13 @@ export class ItemDetailComponent implements OnInit  {
     );
   }
 
+
+  private getDate(dateField: any): Date {
+    if (dateField && dateField.toDate) {
+      return dateField.toDate();
+    }
+    return new Date(dateField);
+  }
 
 
 

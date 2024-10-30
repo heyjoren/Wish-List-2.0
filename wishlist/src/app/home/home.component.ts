@@ -33,6 +33,8 @@ export class HomeComponent {
       }
     });
 
+    console.log("this.laatsteItems: " + this.laatsteItems)
+
     this.bedragService.getBedragenPut();
     this.bedragService.getBedragen();
   }

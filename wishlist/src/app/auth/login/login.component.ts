@@ -43,6 +43,10 @@ export class LoginComponent implements OnInit {
    * admin user:
    *    email:  joren@joren.com
    *    passwd: Joren123*
+   *  
+   *  user:
+   *    email:  test@test.com
+   *    psswd:  Test123*
    */
   onSubmit(): void {
     this.user.email = this.form.value.credentials.email;

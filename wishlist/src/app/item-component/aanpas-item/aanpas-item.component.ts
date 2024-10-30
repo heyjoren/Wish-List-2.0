@@ -21,19 +21,9 @@ import { CommonModule } from '@angular/common';
 })
 export class AanpasItemComponent implements CanComponentDeactivate {
   item: item = new item();
-  // naam: string = '';
-  // prijs: number = 0;
-  // beschrijving: string = '';
-  // img: string = '';
-  // // img: File | null =null;
-  // selectedFile: File | null = null;
-  // fabrikant: string = '';
-
-  // nieuw
   idFromRoute: string | null = null;
   saved: boolean = false;
-  filled: boolean = false;
-  toevoegenSwitch: boolean= false;
+  aanpassenSwitch: boolean= false;
   file: File | null = null;
   form!: FormGroup;
   isSubmitting: boolean = false;
@@ -81,28 +71,17 @@ export class AanpasItemComponent implements CanComponentDeactivate {
     })
   }
 
-  // onFileSelected(event: any) {
-  //   this.selectedFile = event.target.files[0];
-  // }
-
   closeSccreen(){
-    if(!this.toevoegenSwitch)
-      {    
-        // const prijsString: string = this.prijs.toFixed(2).toString();
-        console.log(this.form.value.prijs.toFixed(2))
-        const prijsString: string = this.form.value.prijs.toFixed(2).toString();
-  
-        if(this.form.value.naam !== "" || this.form.value.fabrikant !== "" || prijsString !== '0.00')
+    if(!this.aanpassenSwitch)
+      {      
+        if(this.form.value.naam !== this.item.naam || this.form.value.fabrikant !== this.item.fabrikant || this.form.value.prijs !== this.item.prijs.toString())
         {
-          this.filled = true;
+          console.log("if")
+          this.saved = false;
+
         }
-  
-        if(this.filled)
-        {
-          const confirmClose = confirm('Je hebt nog niet opgeslagen. Ben je zeker dat je niet wilt opslaan?');
-          if (!confirmClose) {
-            return;
-          }
+        else{
+          this.saved = true;
         }
       }
     this.router.navigate(['items']);
@@ -112,6 +91,8 @@ export class AanpasItemComponent implements CanComponentDeactivate {
     if (this.isSubmitting) return;
     this.isSubmitting = true;
     this.saved = true;
+
+    this.aanpassenSwitch = true
 
     if(this.file)
     {
@@ -124,17 +105,8 @@ export class AanpasItemComponent implements CanComponentDeactivate {
       this.item.img = await this.itemService.uploadImg(path, this.file);
     }
 
-    let prijsString: string = "";
-    prijsString = this.form.value.prijs.toString();
-
-
-    if(prijsString.length < 4)
-    {
-      prijsString = this.form.value.prijs.toFixed(2).toString();
-    }
-
     this.item.naam = this.form.value.naam;
-    this.item.prijs = prijsString;
+    this.item.prijs = this.form.value.prijs.toFixed(2);
     this.item.fabrikant = this.form.value.fabrikant;
     this.item.beschrijving = this.form.value.beschrijving;
 

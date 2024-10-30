@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { HttpClient } from '@angular/common/http';;
 import { ImgNamePipe } from '../../img-name.pipe';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-new-item',
@@ -26,15 +27,16 @@ export class NewItemComponent {
 
 
   constructor(private Dialogservice: DialogService, private dialogref: MatDialogRef<NewItemComponent>, 
-    private itemService: ItemService, private router: Router, private http: HttpClient, private imgNamePipe: ImgNamePipe, private fb : FormBuilder) {}
+    private itemService: ItemService, private router: Router, private http: HttpClient, private imgNamePipe: ImgNamePipe, private fb : FormBuilder,
+    private auth: AuthService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      naam: ['', Validators.required],
-      prijs: ['', Validators.required],
-      beschrijving: [''],
-      fabrikant: ['', Validators.required],
-      });
+      'naam': ['', Validators.required],
+      'prijs': [0, [Validators.required, Validators.min(0.01)]],
+      'beschrijving': [''],
+      'fabrikant': ['', Validators.required],
+    });
   }
 
 
@@ -42,8 +44,6 @@ export class NewItemComponent {
   {
     if(!this.toevoegenSwitch)
     {    
-      // const prijsString: string = this.prijs.toFixed(2).toString();
-      console.log(this.form.value.prijs.toFixed(2))
       const prijsString: string = this.form.value.prijs.toFixed(2).toString();
 
       if(this.form.value.naam !== "" || this.form.value.fabrikant !== "" || prijsString !== '0.00')
@@ -64,40 +64,40 @@ export class NewItemComponent {
   }
 
   async toevoegen(){
+
+    if(this.form.valid)
+    {
     this.toevoegenSwitch = true
-    const prijsString: string = this.form.value.prijs.toFixed(2).toString();
 
-    const nieuwitem = {
-      naam: this.form.value.naam,
-      prijs: prijsString,
-      beschrijving: this.form.value.beschrijving,
-      fabrikant: this.form.value.fabrikant,
-      img: ""
+      const nieuwitem = {
+        naam: this.form.value.naam,
+        prijs: this.form.value.prijs.toFixed(2),
+        beschrijving: this.form.value.beschrijving,
+        fabrikant: this.form.value.fabrikant,
+        img: "",
+        uid: this.auth.getUid() ?? '',
+        toegevoegOp: new Date(),
+      }
+
+      const newId = this.itemService.createItemId();
+      if(this.file)
+      {
+        const path = 'item/' + newId + '/' + this.file.name;
+        nieuwitem.img = await this.itemService.uploadImg(path, this.file);
+      }
+      else{
+        nieuwitem.img = "";
+      }
+      this.itemService.addItems(nieuwitem, newId).subscribe({
+        next: () => {
+          this.closeDialog();
+          this.router.navigate(['items']);
+        },
+        error: (error) => {
+          console.error('Error: ', error);
+        }
+      });
     }
-
-    console.log(nieuwitem)
-
-    // if (nieuwitem.naam !== "" && nieuwitem.prijs !== "0" && nieuwitem.fabrikant !== "")
-      // {
-        const newId = this.itemService.createItemId();
-        if(this.file)
-        {
-          const path = 'item/' + newId + '/' + this.file.name;
-          nieuwitem.img = await this.itemService.uploadImg(path, this.file);
-        }
-        else{
-          nieuwitem.img = "";
-        }
-        this.itemService.addItems(nieuwitem, newId).subscribe({
-          next: () => {
-            this.closeDialog();
-            this.router.navigate(['items']);
-          },
-          error: (error) => {
-            console.error('Error: ', error);
-          }
-        });
-      // }
   }
 
   selectImg(event: Event): void {

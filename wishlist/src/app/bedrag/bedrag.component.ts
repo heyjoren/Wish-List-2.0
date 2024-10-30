@@ -10,12 +10,13 @@ import { Router } from '@angular/router';
 import { DialogService } from '../dialog.service';
 import { NewBedragComponent } from './new-bedrag/new-bedrag.component';
 import { Subscription } from 'rxjs';
+import { SortBedragenByDatePipePipe } from '../sort-bedragen-by-date-pipe.pipe';
 
 
 @Component({
   selector: 'app-bedrag',
   standalone: true,
-  imports: [TotaalBedragComponent, ShowBedragComponent, CommonModule, MatIconModule, MatTooltipModule],
+  imports: [TotaalBedragComponent, ShowBedragComponent, CommonModule, MatIconModule, MatTooltipModule, SortBedragenByDatePipePipe],
   templateUrl: './bedrag.component.html',
   styleUrl: './bedrag.component.css'
 })

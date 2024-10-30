@@ -1,11 +1,11 @@
 /*Backend service*/
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, from, map, tap } from 'rxjs';
+import { Observable, Subject, from, map } from 'rxjs';
 import { item } from './item.model';
-import { collection, collectionData, CollectionReference, deleteDoc, doc, docData, DocumentReference, Firestore, setDoc, updateDoc, writeBatch } from '@angular/fire/firestore';
+import { collection, collectionData, CollectionReference, deleteDoc, doc, docData, DocumentReference, Firestore, query, setDoc, updateDoc, where, writeBatch } from '@angular/fire/firestore';
 import { getDownloadURL, ref, uploadBytesResumable, Storage, deleteObject } from '@angular/fire/storage';
-
+import { AuthService } from '../auth/auth.service';
+import { SortItemsByDatePipe } from '../sort-items-by-date.pipe';
 
 
 @Injectable({
@@ -18,13 +18,16 @@ export class ItemService {
 
 
 
-  constructor(private db: Firestore, private storage : Storage) { }
+  constructor(private db: Firestore, private storage : Storage, private auth: AuthService, private sortItemsByDatePipe: SortItemsByDatePipe) { }
 
   getItems(): Observable<item[]> {
     return collectionData<item>(
-      collection(this.db, 'item') as CollectionReference<item>,
-      { idField: 'id'}
-    )
+    query(
+        collection(this.db, 'item') as CollectionReference<item>,
+        where("uid", "==", this.auth.getUid())
+      ),
+      { idField: 'id' }
+    );
   }
 
   getItemsnPut(): void {
@@ -39,7 +42,8 @@ export class ItemService {
 
   getLastItems(): Observable<item[]> {
     return this.getItems().pipe(
-      map(items => items.slice(-5))
+      map(items => this.sortItemsByDatePipe.transform(items)),
+      map(sortedItems => sortedItems.slice(0, 5))
     );
   }
 
@@ -56,7 +60,6 @@ export class ItemService {
 
   deleteItem(item: item) {
     const itemRef = doc(this.db, 'item/' + item.id) as DocumentReference<item>;
-    // console.log("item: " + item);
     if (item.img){
       console.log("if");
       this.deleteImg(item.img);
