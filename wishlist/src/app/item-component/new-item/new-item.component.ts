@@ -68,7 +68,7 @@ export class NewItemComponent {
 
     const nieuwitem = {
       naam: this.form.value.naam,
-      prijs: this.form.value.prijs,
+      prijs: this.form.value.prijs.toFixed(2),
       beschrijving: this.form.value.beschrijving,
       fabrikant: this.form.value.fabrikant,
       img: "",
