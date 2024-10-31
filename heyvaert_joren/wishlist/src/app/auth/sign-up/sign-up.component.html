@@ -1,0 +1,84 @@
+<div>
+    <h1>Welkom</h1>
+    <p>Gelieve u aan te melden op de site.</p>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div formGroupName="naam">
+        <div class="form-group divVoornaamAll">
+            <div class="voornaam">
+                <label for="voornaam">Voornaam:</label>
+                <input id="voornaam" type="text" formControlName="voornaam" class="form-control" placeholder="Voornaam">
+            </div>
+        </div>
+        <div class="form-group divAchternaamAll">
+            <div class="achternaam">
+                <label for="achternaam">Achternaam:</label>
+                <input id="achternaam" type="text" formControlName="achternaam" class="form-control" placeholder="Achternaam">
+            </div>
+        </div>
+    </div>
+    <div class="form-group divAansprekingAll">
+        <div class="aanspreking">
+            <label>Aanspreking:</label>
+            <div class="radio" *ngFor="let gender of genders">
+                <label>
+                  <input type="radio" name="gender" [value]="gender" formControlName="gender"/>
+                    {{ gender }}
+                </label>
+              </div>
+        </div>
+    </div>
+    <div class="form-group divEmailAll">
+        <div class="email">
+            <label for="email">Email:</label>
+            <input id="email" type="email" formControlName="email" class="form-control" placeholder="wishlist@gmail.com">
+        </div>
+        <span *ngIf="email.touched && !email.valid" class="help-block">Geef een geldig email in.</span>
+        <br *ngIf="email.touched && email.errors?.['emailExists'] && !email.valid">
+        <span *ngIf="email.touched && email.errors?.['emailExists']" class="help-block">Het email is al geregistreerd.</span>
+    </div>
+    <div class="form-group divPasswdAll">
+        <div class="passwd-label">
+            <label for="passwd">Paswoord:</label>
+            <div class="passwd">
+                <input id="passwd" [type]="showPassword ? 'text' : 'password'" formControlName="passwd" class="form-control">
+                <button type="button" (click)="togglePasswordVisibility()" class="toggle-passwd-btn">
+                    <img [src]="showPassword ? '../../../assets/icon/eye-symbols-show-visible.png' : '../../../assets/icon/eye-symbols-hide-visible.png'" alt="Toggle Password Visibility">
+                </button>
+            </div>
+        </div>
+        <div>
+            <span>Het paswoord moet minstens bestaan uit:</span>
+            <li [appPasswdRequirements]="{control: passwd, requirement: 'minlength'}">8 karakters</li>
+
+            <li [appPasswdRequirements]="{control: passwd, requirement: 'hasUppercaseAndLower'}">een kleineletter en hoofdletter</li>
+
+            <li [appPasswdRequirements]="{control: passwd, requirement: 'hasNumber'}">een cijfer</li>
+
+            <li [appPasswdRequirements]="{control: passwd, requirement: 'hasSpecialChar'}">een speciaal karakter</li>
+
+        </div>
+        <span *ngIf="passwd.touched && !passwd.valid && passwd.dirty" class="help-block">Het paswoord is niet veilig en voldoet niet aan de vereisten.</span>
+        <span *ngIf="passwd.touched && !passwd.dirty" class="help-block">U moet een paswoord ingeven.</span>
+
+    </div>
+    <div class="submit">
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">submit</button>
+        <button class="btn btn-info tip" (mouseover)="showTooltip= true" (mouseleave)="showTooltip= false" 
+        (mousedown)="keepHover = true" 
+        (mouseup)="keepHover = false"
+        [ngClass]="{'active': keepHover}">?</button>
+        <span class="tip-tekst" *ngIf="showTooltip">Vul alstublieft alle verplichte velden in.
+            <br>
+            Nog in te vullen velden:
+            <ul>
+                <li *ngIf="!voornaam.valid">Voornaam</li>
+                <li *ngIf="!achternaam.valid">Achternaam</li>
+                <li *ngIf="!gender.value">Aanspreking</li>
+                <li *ngIf="!email.valid">Email</li>
+                <li *ngIf="!passwd.valid">Paswoord</li>
+            </ul>
+        </span>
+    </div>
+</form>

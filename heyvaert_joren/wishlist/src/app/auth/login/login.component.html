@@ -1,0 +1,32 @@
+<div class="header">
+    <h1>Welkom terug</h1>
+    <P>Login om de volledige functionaliteit te kunnen gebruiken.</P>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div formGroupName="credentials">
+        <div class="form-group divEmailAll">
+            <div class="email">
+                <label for="email">Email:</label>
+                <input id="email" type="email" formControlName="email" class="form-control" placeholder="wishlist@gmail.com">
+            </div>
+        </div>
+        <div class="form-group divPasswdAll">
+            <div class="passwd-label">
+                <label for="passwd">Paswoord:</label>
+                <div class="passwd">
+                    <input id="passwd" [type]="showPassword ? 'text' : 'password'" formControlName="passwd" class="form-control">
+                    <button type="button" (click)="togglePasswordVisibility()" class="toggle-passwd-btn">
+                        <img [src]="showPassword ? '../../../assets/icon/eye-symbols-show-visible.png' : '../../../assets/icon/eye-symbols-hide-visible.png'" alt="Toggle Password Visibility">
+                    </button>
+                </div>
+            </div>
+        </div>
+        <span class="help-block" *ngIf="falsLoggin">
+            Wachtwoord of email onjuist
+        </span>
+    </div>
+    <div class="submit">
+        <button class="btn btn-primary" type="submit">submit</button>
+    </div>
+</form>

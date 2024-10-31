@@ -1,0 +1,17 @@
+<div class="border p-2 box" [class.selected-item]="isSelected">
+    <div class="d-flex justify-content-between">
+      <div>
+        <p class="mb-0">Naam: {{ item.naam }}</p>
+        <p class="mb-0">Fabrikant: {{ item.fabrikant }}</p>
+      </div>
+      <p class="mb-0 align-self-center">Prijs: €{{ item.prijs }}</p>
+    </div>
+    <p class="mb-0">Beschrijving: {{ item.beschrijving | shortDescription }}</p>
+    <div *ngIf="showButtons">
+      <button id="aanpassen" (click)="onAanpas()">Aanpassen</button>
+
+      <button matTooltip="Verwijder dit item" (click)="onDelete()" id="verwijder">
+        <mat-icon mat-stroked-button>delete</mat-icon>
+      </button>
+  </div>
+</div>

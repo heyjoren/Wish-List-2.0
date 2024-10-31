@@ -1,0 +1,122 @@
+{
+  "item": [
+    {
+      "id": "1",
+      "naam": "HERO 12",
+      "prijs": "449.00",
+      "beschrijving": "action cam HERO12",
+      "img": "",
+      "fabrikant": "GoPro"
+    },
+    {
+      "id": "2",
+      "naam": "QR2 Pro Wheel-Side",
+      "prijs": "199.95",
+      "beschrijving": "quicke release",
+      "img": "QR2_WS_PRO_.jpg",
+      "fabrikant": "Fanatec"
+    },
+    {
+      "id": "3",
+      "naam": "SanDisk Extreme PRO",
+      "prijs": "32.59",
+      "beschrijving": "256GB micro SD kaart",
+      "img": "microSDkaart256.jpg",
+      "fabrikant": "SanDisk"
+    },
+    {
+      "id": "4",
+      "naam": "Nexode RG 65W GaN Charger",
+      "prijs": "39.99",
+      "beschrijving": "zwarte oplader",
+      "img": "nexode-rg-65w-gan-charger-black.webp",
+      "fabrikant": "Ugreen"
+    },
+    {
+      "id": "5",
+      "naam": "BealNG.drive",
+      "prijs": "20.99",
+      "beschrijving": "game",
+      "img": "",
+      "fabrikant": "Steam"
+    },
+    {
+      "id": "6",
+      "naam": "Assetto Corsa",
+      "prijs": "19.99",
+      "beschrijving": "Assetto Corsa is een meeslepende, realistische racesimulator die autoliefhebbers en gamers over de hele wereld in zijn ban houdt. Ontwikkeld door het Italiaanse gamebedrijf Kunos Simulazioni, staat Assetto Corsa bekend om zijn ongeëvenaarde precisie, indrukwekkende graphics en uitgebreide selectie van zorgvuldig gereproduceerde racewagens en circuits. In Assetto Corsa worden spelers uitgedaagd om de ultieme race-ervaring te beleven, met een nadruk op realisme en authenticiteit. Het spel biedt een breed scala aan speelmodi, waaronder singleplayer, multiplayer en uitdagende competitieve evenementen. Spelers kunnen hun vaardigheden testen tegen AI-tegenstanders of zich meten met andere raceliefhebbers in online multiplayer-races. Een van de opvallende kenmerken van Assetto Corsa is de ongeëvenaarde fysica en handling van de voertuigen. Elke auto voelt uniek aan, met realistische reacties op veranderingen in wegdek, weersomstandigheden en rijgedrag. Dit niveau van detail zorgt voor een meeslepende en uitdagende rijervaring die zelfs de meest veeleisende spelers zal bevredigen. Assetto Corsa biedt ook uitgebreide aanpassingsmogelijkheden, waardoor spelers hun rijervaring kunnen aanpassen aan hun eigen voorkeuren. Van het afstemmen van de ophanging tot het aanpassen van de bandenslijtage en het brandstofverbruik, de mogelijkheden zijn bijna eindeloos. Met regelmatige updates en uitbreidingspakketten blijft Assetto Corsa evolueren en nieuwe inhoud toevoegen, waardoor spelers keer op keer terugkomen voor meer adrenaline-pompende races. Of je nu een doorgewinterde petrolhead bent of gewoon op zoek bent naar een opwindende race-ervaring, Assetto Corsa biedt iets voor iedereen. Stap in, start je motor en bereid je voor op een onvergetelijke rit.",
+      "img": "",
+      "fabrikant": "Steam"
+    },
+    {
+      "id": "7",
+      "naam": "Assetto Corsa Competizione ",
+      "prijs": "39.99",
+      "beschrijving": "racing game",
+      "img": "microSDkaart256.jpg",
+      "fabrikant": "Steam"
+    }
+  ],
+  "bedrag": [
+    {
+      "id": "1",
+      "bedrag": "50",
+      "teken": "+",
+      "datum": "05-12-2023"
+    },
+    {
+      "id": "3",
+      "bedrag": "100",
+      "teken": "+",
+      "datum": "15-2-2024"
+    },
+    {
+      "id": "4",
+      "bedrag": "20",
+      "teken": "-",
+      "datum": "16-04-2024"
+    },
+    {
+      "id": "4d19",
+      "bedrag": "10",
+      "teken": "+",
+      "datum": "02-05-2024"
+    },
+    {
+      "id": "c6c5",
+      "bedrag": "39.99",
+      "teken": "-",
+      "datum": "05-05-2024"
+    },
+    {
+      "id": "4645",
+      "bedrag": "1.00",
+      "teken": "-",
+      "datum": "07-05-2024"
+    },
+    {
+      "id": "d891",
+      "bedrag": "1.00",
+      "teken": "+",
+      "datum": "12-02-3234"
+    },
+    {
+      "id": "7b6f",
+      "bedrag": "19.99",
+      "teken": "-",
+      "datum": "10-05-2024"
+    },
+    {
+      "id": "0b6f",
+      "bedrag": "150.00",
+      "teken": "+",
+      "datum": "10-05-2024"
+    },
+    {
+      "id": "682e",
+      "bedrag": "10.00",
+      "teken": "-",
+      "datum": "10-05-2024"
+    }
+  ]
+}

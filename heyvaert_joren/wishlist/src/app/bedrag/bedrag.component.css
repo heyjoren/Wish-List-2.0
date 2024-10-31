@@ -1,0 +1,27 @@
+.add_delete {
+    padding-top: 10px;
+}
+
+.totaalBedrag {
+    float: right;
+    margin-top: 25px;
+}
+
+button {
+    border-radius: 20px;
+    padding: 10px;
+    background-color: greenyellow;
+    border-color: white;
+}
+
+mat-icon {
+    color: black;
+}
+
+button:hover {
+    background-color: black;
+}
+
+button:hover mat-icon {
+    color: greenyellow;
+}
