@@ -2,8 +2,5 @@
  angular web app uitbreidnig
  <hr/><hr/>
 
-Wish list aanpassen zodat hij via een firebase kan werken als database
-
-<hr/>
-
-inlog toevoegen en administrator + extra features
+Een pwa gemaakt in angular waarbij je producten kan bijhouden die je graag zou willen hebben.
+Maakt gebruik van als hosting service.
